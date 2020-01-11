@@ -127,6 +127,13 @@ public class VertXPlayer {
 
         public void setInviter(PlayerData inviter) {
 
+            if (isExecutingDependentCommand()) {
+                error(getDependencyMessage());
+                return;
+            }
+
+            setRunning();
+
             if (isGiven()) {
                 error("The reward has already been given to " + Main.formatName(inviterPlayer));
                 return;
@@ -156,6 +163,7 @@ public class VertXPlayer {
                     //todo: message player saying an error occurred
                     Bukkit.getLogger().info("It fails");
                 }
+                setFinished();
             });
         }
 
@@ -164,6 +172,13 @@ public class VertXPlayer {
         }
 
         public void setConfirmed() {
+
+            if (isExecutingDependentCommand()) {
+                error(getDependencyMessage());
+                return;
+            }
+
+            setRunning();
 
             if (inviterPlayer == null) {
                 error("You need to select a player first");
@@ -187,7 +202,7 @@ public class VertXPlayer {
                 } else {
                     databaseError();
                 }
-
+                setFinished();
             });
         }
 

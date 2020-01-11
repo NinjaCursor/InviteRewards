@@ -39,8 +39,6 @@ public class LogInListener implements Listener {
         PlayerData playerData = new PlayerData(uuid, player.getDisplayName());
         VertXPlayer vertXPlayer = Main.getDataHandler().getPlayer(playerData);
 
-        Main.info("aasdfas;ldkfja;lksdfja;skldfj;alkjdsf");
-
         boolean wasInvited = false;
         if (vertXPlayer.getInviterPlayer() != null)
             wasInvited = true;

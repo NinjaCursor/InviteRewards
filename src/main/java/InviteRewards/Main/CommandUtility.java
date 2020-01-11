@@ -16,4 +16,17 @@ public class CommandUtility {
     public boolean isExecutingDependentCommand() {
         return isExecutingDependentCommand;
     }
+
+    public void setRunning() {
+        this.isExecutingDependentCommand = true;
+    }
+
+    public void setFinished() {
+        this.isExecutingDependentCommand = false;
+    }
+
+    public String getDependencyMessage() {
+        return "Please wait before using this command";
+    }
+
 }

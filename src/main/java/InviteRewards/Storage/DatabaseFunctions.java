@@ -163,16 +163,16 @@ public class DatabaseFunctions {
         SequentialRunnable runnable = new SequentialRunnable() {
             @Override
             public RunnableResult run() {
+                Bukkit.getLogger().info("TERST");
+            boolean success = sendCommand((connection) -> {
+                String sql = String.format("DELETE FROM %1$s WHERE %2$s=?", invitedToInviterTable.getName(), invitedUUIDColumn.getName());
+                Main.info(sql);
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, invited.getUUID().toString());
+                statement.execute();
+            });
 
-                boolean success = sendCommand((connection) -> {
-                    String sql = String.format("DELETE FROM %1$s WHERE %2$s=?", invitedToInviterTable.getName(), invitedUUIDColumn.getName());
-                    Main.info(sql);
-                    PreparedStatement statement = connection.prepareStatement(sql);
-                    statement.setString(1, invited.getUUID().toString());
-                    statement.execute();
-                });
-
-                return new RunnableResult(success, true);
+            return new RunnableResult(success, true);
             }
         };
         return addToQueue(runnable).thenApply((success) -> {
