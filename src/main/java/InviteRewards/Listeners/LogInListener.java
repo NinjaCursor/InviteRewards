@@ -40,7 +40,6 @@ public class LogInListener implements Listener {
         VertXPlayer vertXPlayer = Main.getDataHandler().getPlayer(playerData);
 
         boolean wasInvited = false;
-
         if (vertXPlayer.getInviterPlayer() != null)
             wasInvited = true;
 
