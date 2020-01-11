@@ -1,0 +1,36 @@
+name: InviteRewards
+main: InviteRewards.Main.Main
+version: 1.0
+api-version: 1.13
+depend: [ VertXTimeManagement ]
+commands:
+  invitedby:
+    description: select player who invited you
+    permission:
+    permissions: []
+    permission-message: Error permissions
+    usage: "Usage: /invitedby player"
+  inviteconfirm:
+    description: confirm selection of player who invited you
+    permission:
+    permissions: []
+    permission-message: Error permissions
+    usage: "Usage: /inviteconfirm"
+  invitestats:
+    description: show invite stats
+    permission:
+    permissions: []
+    permission-message: Error permissions
+    usage: "Usage: /invitestats player"
+  inviterequirements:
+    description: shows requirements for invite reward
+    permission:
+    permissions: []
+    permission-message: Error permissions
+    usage: "Usage: /inviterequirements"
+  opinvitereset:
+    description: op force reset
+    permission: invite.admin
+    permissions: []
+    permission-message: You do not have the permission
+    usage: "Usage: /opinvitereset player"
