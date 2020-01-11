@@ -5,8 +5,11 @@ import InviteRewards.Listeners.*;
 import InviteRewards.Storage.DatabaseFunctions;
 import VertXCommons.Storage.PlayerData;
 import VertXCommons.Storage.SQLPool;
+import me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.PlaceholderHook;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -76,6 +79,38 @@ public class InviteRewards extends JavaPlugin {
         getCommand("inviterequirements").setExecutor(new InviteRequirementCommand("inviterequirements", ""));
         getCommand("opinvitereset").setExecutor(new OpInviteResetCommand("opinvitereset", "invite.admin"));
 
+    }
+
+    public static PlayerData getPlayerData(Player player) {
+        return new PlayerData(player.getUniqueId(), player.getName());
+    }
+
+    private void registerPlaceholders() {
+        PlaceholderAPI.registerPlaceholderHook("inviterewards", new PlaceholderHook() {
+            @Override
+            public String onPlaceholderRequest(Player player, String s) {
+                VertXPlayer vertXPlayer = getDataHandler().getPlayer(getPlayerData(player));
+                switch (s) {
+                    case "locked":
+                        return vertXPlayer.isLocked() ? "" + ChatColor.GREEN + "yes" : "" + ChatColor.RED + "no";
+                        break;
+                    case "satisfied":
+                        return vertXPlayer.isSatisfied() ? "" + ChatColor.GREEN + "yes" : "" + ChatColor.RED + "no";
+                        break;
+                    case "given":
+                        return vertXPlayer.isGiven() ? "" + ChatColor.GREEN + "yes" : "" + ChatColor.RED + "no";
+                        break;
+                    case "invited_count":
+                        int count = vertXPlayer.getInvitedPlayers().size();
+                        return count > 0 ? ChatColor.RED + "" + count : ChatColor.GREEN + "" + count;
+                        break;
+                    case "brief_stats":
+                        return PlaceholderAPI.setPlaceholders(player, "locked: %locked%, completed: %satisfied%, invited: %invited_count%");
+                        break;
+
+                }
+            }
+        });
     }
 
     public static void runSync(Runnable runnable) {
