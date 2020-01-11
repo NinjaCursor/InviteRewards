@@ -2,6 +2,7 @@ package InviteRewards.Listeners;
 
 import InviteRewards.CustomEvents.AwardedEvent;
 import InviteRewards.CustomEvents.LockedInEvent;
+import InviteRewards.Main.DualMessage;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
 import VertXCommons.Storage.PlayerData;
@@ -10,7 +11,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class LockedInListener implements Listener {
+public class LockedInListener extends DualMessage implements Listener {
+
+    public LockedInListener() {
+        super("locked-message");
+    }
 
     @EventHandler
     public void onLockedIn(LockedInEvent event) {
@@ -18,20 +23,9 @@ public class LockedInListener implements Listener {
         PlayerData invitedData = event.getInvitedData();
         PlayerData inviterData = event.getInviterData();
 
+        sendMessages(invitedData, inviterData);
+
         VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
-
-        if (invitedPlayer == null)
-            InviteRewards.info("invitedPlayer is null");
-
-        if (inviterData == null) {
-            InviteRewards.info("inviterData is null");
-        }
-
-
-
-        invitedPlayer.msg("You have locked in " + InviteRewards.formatName(inviterData) + " to receive your invite reward");
-        invitedPlayer.error("This cannot be undone");
-
         if (invitedPlayer.isSatisfied())
             Bukkit.getPluginManager().callEvent(new AwardedEvent(inviterData, invitedData));
 

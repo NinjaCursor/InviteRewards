@@ -21,6 +21,21 @@ public class InviteRewards extends JavaPlugin {
     private static JavaPlugin plugin;
     private static DatabaseFunctions dataHandler;
     public static int minLogins, minTotalTime, minLoginTime;
+    private static InvitedByCommand invitedByCommand;
+    private static InvitedConfirmCommand invitedConfirmCommand;
+    private static InviteStatsCommand inviteStatsCommand;
+
+    public static String getInvitedByCommandName() {
+        return invitedByCommand.getCommandName();
+    }
+
+    public static String getInvitedConfirmCommandName() {
+        return invitedConfirmCommand.getCommandName();
+    }
+
+    public static String getInviteStatsCommandName() {
+        return inviteStatsCommand.getCommandName();
+    }
 
     public static DatabaseFunctions getDataHandler() {
         return dataHandler;
@@ -35,9 +50,12 @@ public class InviteRewards extends JavaPlugin {
     }
 
     public static void msg(PlayerData playerData, String message) {
-        for(Player p : Bukkit.getServer().getOnlinePlayers())
-            if(p.getUniqueId().equals(playerData.getUuid()))
-                p.sendMessage(ChatColor.GRAY + message);
+        for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+            if(p.getUniqueId().equals(playerData.getUuid())) {
+                p.sendMessage(ChatColor.GRAY + ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(p, message)));
+            }
+        }
+
     }
 
     public static void messageError(PlayerData playerData, String message) {
@@ -73,11 +91,17 @@ public class InviteRewards extends JavaPlugin {
         minLoginTime = getConfig().getInt("login-min");
         minTotalTime = getConfig().getInt("totaltime");
 
-        getCommand("invitedby").setExecutor(new InvitedByCommand("invitedby" , ""));
-        getCommand("inviteconfirm").setExecutor(new InvitedConfirmCommand("inviteconfirm", ""));
-        getCommand("invitestats").setExecutor(new InviteStatsCommand("invitestats", ""));
-        getCommand("inviterequirements").setExecutor(new InviteRequirementCommand("inviterequirements", ""));
+        invitedByCommand = new InvitedByCommand("invitedby" , "");
+        invitedConfirmCommand = new InvitedConfirmCommand("inviteconfirm", "");
+        inviteStatsCommand = new InviteStatsCommand("invitestats", "");
+
+        getCommand("invitedby").setExecutor(invitedByCommand);
+        getCommand("inviteconfirm").setExecutor(invitedConfirmCommand);
+        getCommand("invitestats").setExecutor(inviteStatsCommand);
         getCommand("opinvitereset").setExecutor(new OpInviteResetCommand("opinvitereset", "invite.admin"));
+
+        PlaceholderLibrary library = new PlaceholderLibrary();
+        library.hook();
 
     }
 

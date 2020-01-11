@@ -4,6 +4,7 @@ InviteRewards\Storage\DatabaseFunctions.class
 InviteRewards\UsernameConverter\UsernameConverter.class
 InviteRewards\Main\InviteRewards.class
 InviteRewards\Main\HandleRequirements$1.class
+InviteRewards\Main\PlaceholderLibrary.class
 InviteRewards\Main\VertXPlayer$PlayerCommander$1.class
 InviteRewards\Commands\AllowableUserType.class
 InviteRewards\Main\VertXPlayer$PlayerCommander.class
@@ -16,12 +17,12 @@ InviteRewards\Storage\DatabaseFunctions$2.class
 InviteRewards\Storage\DatabaseFunctions$5.class
 InviteRewards\Listeners\AwardListener.class
 InviteRewards\Commands\OpInviteResetCommand.class
+InviteRewards\Main\PlaceholderLibrary$1.class
 InviteRewards\Main\CommandUtility.class
 InviteRewards\Commands\InvitedConfirmCommand.class
 InviteRewards\Main\HandleRequirements.class
 InviteRewards\Storage\DatabaseFunctions$3.class
 InviteRewards\Commands\InviteStatsCommand.class
-InviteRewards\Main\InviteRewards$1.class
 InviteRewards\Listeners\LockedInListener.class
 InviteRewards\Main\VertXPlayer.class
 InviteRewards\Commands\InvitedByCommand$1.class

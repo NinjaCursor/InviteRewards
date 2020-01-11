@@ -22,12 +22,6 @@ commands:
     permissions: []
     permission-message: Error permissions
     usage: "Usage: /invitestats player"
-  inviterequirements:
-    description: shows requirements for invite reward
-    permission:
-    permissions: []
-    permission-message: Error permissions
-    usage: "Usage: /inviterequirements"
   opinvitereset:
     description: op force reset
     permission: invite.admin

@@ -1,7 +1,9 @@
 package InviteRewards.Listeners;
 
+import InviteRewards.Commands.InvitedConfirmCommand;
 import InviteRewards.CustomEvents.AwardedEvent;
 import InviteRewards.CustomEvents.MetRequirementsEvent;
+import InviteRewards.Main.DualMessage;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
 import VertXCommons.Storage.PlayerData;
@@ -10,7 +12,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class MetRequirementsListener implements Listener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MetRequirementsListener extends DualMessage implements Listener {
+
+    public MetRequirementsListener() {
+        super("completed-message");
+    }
 
     @EventHandler
     public void onSatisfied(MetRequirementsEvent event) {
@@ -18,10 +27,9 @@ public class MetRequirementsListener implements Listener {
         PlayerData invitedData = event.getInvitedData();
         PlayerData inviterData = event.getInviterData();
 
-        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
+        sendMessages(invitedData, inviterData);
 
-        invitedPlayer.msg("" + ChatColor.RESET + ChatColor.GREEN + ChatColor.BOLD + "CONGRATULATIONS!");
-        invitedPlayer.msg("" + ChatColor.AQUA + "You completed the Invite Rewards Program time requirements!");
+        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
 
         if (invitedPlayer.isLocked())
             Bukkit.getPluginManager().callEvent(new AwardedEvent(inviterData, invitedData));

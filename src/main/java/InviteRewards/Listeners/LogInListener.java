@@ -1,5 +1,6 @@
 package InviteRewards.Listeners;
 
+import InviteRewards.Main.ConfigMessage;
 import InviteRewards.Main.HandleRequirements;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
@@ -17,9 +18,14 @@ import java.util.UUID;
 public class LogInListener implements Listener {
 
     private HashMap<UUID, Integer> playerTaskIDs;
+    private ConfigMessage newPersonMessage, oldNotInvitedMessage, oldInvitedNotLockedButCompletedMessage, oldNotCompletedMessage;
 
     public LogInListener() {
         playerTaskIDs = new HashMap<>();
+        newPersonMessage = new ConfigMessage("login-message.new");
+        oldNotInvitedMessage = new ConfigMessage("login-message.old.not-invited");
+        oldInvitedNotLockedButCompletedMessage = new ConfigMessage("login-message.old.invited.not-locked-but-completed");
+        oldNotCompletedMessage = new ConfigMessage("login-message.old.invited.not-completed");
     }
 
     @EventHandler
@@ -38,11 +44,21 @@ public class LogInListener implements Listener {
 
         UUID uuid = player.getUniqueId();
         PlayerData playerData = new PlayerData(uuid, player.getDisplayName());
+
         VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(playerData);
 
-        boolean wasInvited = false;
-        if (vertXPlayer.getInviterPlayer() != null)
-            wasInvited = true;
+        if (!player.hasPlayedBefore()) {
+            newPersonMessage.sendMessage(playerData);
+        } else {
+            if (vertXPlayer.getInviterPlayer() != null) {
+                oldNotInvitedMessage.sendMessage(playerData);
+            } else {
+                if (vertXPlayer.isSatisfied() && !vertXPlayer.isLocked())
+                    oldInvitedNotLockedButCompletedMessage.sendMessage(playerData);
+                else
+                    oldNotCompletedMessage.sendMessage(playerData);
+            }
+        }
 
         if (!vertXPlayer.isSatisfied()) {
             HandleRequirements.handle(vertXPlayer);
