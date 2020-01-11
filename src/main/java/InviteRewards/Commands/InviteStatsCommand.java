@@ -33,7 +33,7 @@ public class InviteStatsCommand extends CommandAsset {
                 @Override
                 public void run() {
                     Player player = (Player) sender;
-                    PlayerData viewer = new PlayerData(player.getUniqueId(), player.getDisplayName());
+                    PlayerData viewer = new PlayerData(player.getUniqueId(), player.getPlayerListName());
                     for (String message : playerInviteData) {
                         Main.msg(viewer, message);
                     }

@@ -16,7 +16,7 @@ public class InviteRequirementCommand extends CommandAsset {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
-        VertXPlayer vertXPlayer = Main.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getDisplayName()));
+        VertXPlayer vertXPlayer = Main.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getPlayerListName()));
         vertXPlayer.showRequirements();
         return true;
     }

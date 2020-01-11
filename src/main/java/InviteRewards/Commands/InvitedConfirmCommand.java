@@ -13,7 +13,7 @@ public class InvitedConfirmCommand extends CommandAsset {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
-        Main.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getDisplayName())).getCommander().setConfirmed();
+        Main.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getPlayerListName())).getCommander().setConfirmed();
         return true;
     }
 }

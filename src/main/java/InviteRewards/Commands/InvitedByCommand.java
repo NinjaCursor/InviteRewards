@@ -18,12 +18,11 @@ public class InvitedByCommand extends CommandAsset {
     public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
         String inviterUsername = args[0];
-
         UsernameConverter.getPlayerData(inviterUsername).thenAccept((inviterPlayerData) -> {
             Main.runSync(new Runnable() {
                 @Override
                 public void run() {
-                    VertXPlayer invitedPlayer = Main.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getDisplayName()));
+                    VertXPlayer invitedPlayer = Main.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getPlayerListName()));
                     if (inviterPlayerData == null) {
                         invitedPlayer.error("Could not find player \"" + inviterUsername + "\"");
                         return;

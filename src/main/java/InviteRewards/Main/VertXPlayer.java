@@ -79,29 +79,33 @@ public class VertXPlayer {
     }
 
     private String getYesNo(boolean trueOrFalse) {
-        return ((trueOrFalse) ? ChatColor.BLUE + "YES" : ChatColor.RED + "NO") + ChatColor.GRAY;
+        return ((trueOrFalse) ? ChatColor.BLUE + "yes" : ChatColor.RED + "no") + ChatColor.GRAY;
     }
 
     public String[] getStats() {
         List<String> statFormatted = new ArrayList<>();
 
-        statFormatted.add("----------- " + ChatColor.BLUE + "Invite Stats" + ChatColor.GRAY + " ----------");
-        statFormatted.add("Player: " + selfPlayer.getUsername());
+        statFormatted.add("----------- " + ChatColor.BLUE + ChatColor.BOLD + "Invite Stats" + ChatColor.GRAY + " ----------");
+        statFormatted.add("Player: " + Main.formatName(selfPlayer));
         if (inviterPlayer != null)
-            statFormatted.add("Selected Inviter: " + inviterPlayer.getUsername());
+            statFormatted.add("Inviter: " + Main.formatName(inviterPlayer));
         else
-            statFormatted.add("Has not selected inviter.");
-        statFormatted.add("Has Invited: " + invitedPlayers.size());
+            statFormatted.add("Inviter: " + ChatColor.RED + "none selected");
 
         statFormatted.add("Locked: " + getYesNo(locked));
-        statFormatted.add("Met Requirements: " + getYesNo(satisfied));
+        statFormatted.add("Can give reward: " + getYesNo(satisfied));
+
+        if (invitedPlayers.size() == 0)
+            statFormatted.add("Invited: " + ChatColor.RED + "none");
+        else
+            statFormatted.add("Invited: ");
 
 
         for (VertXPlayer vertXPlayer : invitedPlayers) {
-            String nameColor = ((vertXPlayer.isSatisfied()) ? ChatColor.GREEN + "" : ChatColor.RED + "");
-            String suffixString = ((vertXPlayer.isLocked()) ? ChatColor.GRAY + "Locked" : ChatColor.RED + "Not Locked");
+            String satisfiedNotification = ((vertXPlayer.isSatisfied()) ? ChatColor.GREEN + "completed" : ChatColor.RED + "not completed");
+            String suffixString = ((vertXPlayer.isLocked()) ? ChatColor.GRAY + "locked" : ChatColor.RED + "not locked");
 
-            statFormatted.add(" - " + nameColor + vertXPlayer.getSelfPlayer().getUsername() + " " + suffixString);
+            statFormatted.add(" - " + Main.formatName(vertXPlayer.getSelfPlayer()) + " " + suffixString + ChatColor.RESET + " | " + satisfiedNotification);
         }
 
         String[] arr = statFormatted.toArray(new String[0]);
@@ -152,12 +156,17 @@ public class VertXPlayer {
             Main.getDataHandler().setInvited(inviter, selfPlayer).thenAccept((success) -> {
                 if (success) {
                     //setInvited for inviter
+                    if (inviterPlayer != null) {
+                        Main.getDataHandler().getPlayer(inviterPlayer).getCommander().removeInvited(player);
+                    }
+
                     inviterPlayer = inviter;
 
                     msg("You have selected " + inviter.getUsername() + " to receive your invite reward");
 
                     //change inviterPlayer (PlayerData)
                     Main.getDataHandler().getPlayer(inviter).getCommander().setInvited(player);
+
 
                 } else {
                     databaseError();
@@ -168,6 +177,10 @@ public class VertXPlayer {
 
         public void setInvited(VertXPlayer invitedPlayer) {
             invitedPlayers.add(invitedPlayer);
+        }
+
+        public void removeInvited(VertXPlayer invitedPlayer) {
+            invitedPlayers.remove(invitedPlayer);
         }
 
         public void setConfirmed() {

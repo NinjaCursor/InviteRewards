@@ -163,23 +163,38 @@ public class DatabaseFunctions {
         SequentialRunnable runnable = new SequentialRunnable() {
             @Override
             public RunnableResult run() {
-            boolean success = sendCommand((connection) -> {
-                String sql = String.format("DELETE FROM %1$s WHERE %2$s=?", invitedToInviterTable.getName(), invitedUUIDColumn.getName());
-                Main.info(sql);
-                PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setString(1, invited.getUUID().toString());
-                statement.execute();
-            });
+                boolean success = sendCommand((connection) -> {
+                    String sql = String.format("DELETE FROM %1$s WHERE %2$s=?", invitedToInviterTable.getName(), invitedUUIDColumn.getName());
+                    Main.info(sql);
+                    PreparedStatement statement = connection.prepareStatement(sql);
+                    statement.setString(1, invited.getUUID().toString());
+                    statement.execute();
+                });
 
-            return new RunnableResult(success, true);
+                return new RunnableResult(success, true);
             }
         };
         return addToQueue(runnable).thenApply((success) -> {
+
             Main.runSync(new Runnable() {
                 @Override
                 public void run() {
                     if (success) {
-                        players.put(invited.getUUID(), new VertXPlayer(invited));
+
+                        if (players.containsKey(invited.getUUID())) {
+                            PlayerData playerData = players.get(invited.getUUID()).getInviterPlayer();
+                            if (playerData != null) {
+                                players.get(playerData.getUUID()).getCommander().removeInvited(players.get(invited.getUUID()));
+                            }
+                        }
+
+
+                        if (players.containsKey(invited.getUUID()))
+                            players.get(invited.getUUID()).copyPlayer(new VertXPlayer(invited));
+                        else
+                            players.put(invited.getUUID(), new VertXPlayer(invited));
+
+
                     }
                 }
             });

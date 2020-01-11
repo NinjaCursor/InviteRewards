@@ -6,6 +6,7 @@ import InviteRewards.CustomEvents.LockedInEvent;
 import InviteRewards.Listeners.*;
 import InviteRewards.Storage.DatabaseFunctions;
 import InviteRewards.Storage.PlayerData;
+import InviteRewards.Storage.SQLPool;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -45,7 +46,7 @@ public class Main extends JavaPlugin {
     }
 
     public static String formatName(PlayerData playerData) {
-        return ChatColor.YELLOW + "" + playerData.getUsername() + ChatColor.GRAY;
+        return "" + ChatColor.WHITE + ChatColor.stripColor(playerData.getUsername()) + ChatColor.RESET + ChatColor.GRAY;
     }
 
     @Override
@@ -103,7 +104,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        SQLPool.close();
     }
 
 }

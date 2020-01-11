@@ -1,3 +1,4 @@
+C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\HandleRequirements.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\CustomEvents\AwardedEvent.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\UsernameConverter\UsernameConverter.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\InviteRequirementCommand.java
@@ -9,15 +10,14 @@ C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Stor
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\CommandAsset.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\CustomEvents\MetRequirementsEvent.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Storage\DatabaseFunctions.java
-C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Listeners\SpellCastListener.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\Main.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\CustomEvents\LockedInEvent.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Storage\ThrowingConsumer.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Listeners\MetRequirementsListener.java
-C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\CustomEvents\SpellCastEvent.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\InvitedConfirmCommand.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Listeners\LockedInListener.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Storage\PlayerData.java
+C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\OpInviteResetCommand.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\VertXPlayer.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Listeners\LogInListener.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\AllowableUserType.java
