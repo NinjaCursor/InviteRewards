@@ -136,8 +136,6 @@ public class VertXPlayer {
                 return;
             }
 
-            setRunning();
-
             if (isGiven()) {
                 error("The reward has already been given to " + Main.formatName(inviterPlayer));
                 return;
@@ -152,9 +150,10 @@ public class VertXPlayer {
                 error("You cannot invite yourself");
                 return;
             }
-
+            setRunning();
             Main.getDataHandler().setInvited(inviter, selfPlayer).thenAccept((success) -> {
                 if (success) {
+
                     //setInvited for inviter
                     if (inviterPlayer != null) {
                         Main.getDataHandler().getPlayer(inviterPlayer).getCommander().removeInvited(player);
@@ -173,6 +172,10 @@ public class VertXPlayer {
                     databaseError();
                 }
                 setFinished();
+            }).exceptionally((exception) -> {
+                setFinished();
+                Main.info(exception.getMessage());
+                return null;
             });
         }
 
@@ -191,8 +194,6 @@ public class VertXPlayer {
                 return;
             }
 
-            setRunning();
-
             if (inviterPlayer == null) {
                 error("You need to select a player first");
                 return;
@@ -203,6 +204,7 @@ public class VertXPlayer {
                 return;
             }
 
+            setRunning();
             Main.getDataHandler().setConfirmed(selfPlayer).thenAcceptAsync((success) -> {
                 if (success) {
                     Main.runSync(new Runnable() {
@@ -211,11 +213,16 @@ public class VertXPlayer {
                             Bukkit.getPluginManager().callEvent(new LockedInEvent(inviterPlayer, selfPlayer));
                         }
                     });
+
                     locked = true;
                 } else {
                     databaseError();
                 }
                 setFinished();
+            }).exceptionally((exception) -> {
+                setFinished();
+                Main.info(exception.getMessage());
+                return null;
             });
         }
 
