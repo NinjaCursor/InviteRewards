@@ -18,7 +18,8 @@ public class AwardListener implements Listener {
         VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
         VertXPlayer inviterPlayer = InviteRewards.getDataHandler().getPlayer(inviterData);
 
-        invitedPlayer.msg(InviteRewards.formatName(inviterData) + " will receive an award");
+        invitedPlayer.msg(InviteRewards.formatName(inviterData) + " will now receive a award!" +
+                "");
 
         inviterPlayer.msg("You invited " + InviteRewards.formatName(invitedData) + " and you deserve an award!");
 

@@ -19,9 +19,6 @@ public class LockedInListener implements Listener {
 
         VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
 
-        if (invitedPlayer.isSatisfied())
-            Bukkit.getPluginManager().callEvent(new AwardedEvent(inviterData, invitedData));
-
         if (invitedPlayer == null)
             InviteRewards.info("invitedPlayer is null");
 
@@ -31,7 +28,11 @@ public class LockedInListener implements Listener {
 
 
         invitedPlayer.msg("You have locked in " + InviteRewards.formatName(inviterData) + " to receive your invite reward");
-        invitedPlayer.msg("This cannot be undone");
+        invitedPlayer.error("This cannot be undone");
+
+        if (invitedPlayer.isSatisfied())
+            Bukkit.getPluginManager().callEvent(new AwardedEvent(inviterData, invitedData));
+
     }
 
 }
