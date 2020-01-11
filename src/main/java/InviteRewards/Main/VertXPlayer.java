@@ -148,7 +148,7 @@ public class VertXPlayer {
                 return;
             }
 
-            if (inviter.getUUID() == selfPlayer.getUUID()) {
+            if (inviter.getUUID().equals(selfPlayer.getUUID())) {
                 error("You cannot invite yourself");
                 return;
             }
@@ -162,7 +162,8 @@ public class VertXPlayer {
 
                     inviterPlayer = inviter;
 
-                    msg("You have selected " + inviter.getUsername() + " to receive your invite reward");
+                    msg("You have selected " + Main.formatName(inviter) + " to receive your invite reward");
+                    msg("Type " + ChatColor.WHITE + "/inviteconfirm" + ChatColor.GRAY + " to confirm your selection");
 
                     //change inviterPlayer (PlayerData)
                     Main.getDataHandler().getPlayer(inviter).getCommander().setInvited(player);
