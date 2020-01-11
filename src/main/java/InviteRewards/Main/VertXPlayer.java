@@ -79,13 +79,13 @@ public class VertXPlayer {
     }
 
     private String getYesNo(boolean trueOrFalse) {
-        return ((trueOrFalse) ? ChatColor.BLUE + "yes" : ChatColor.RED + "no") + ChatColor.GRAY;
+        return ((trueOrFalse) ? ChatColor.GREEN + "yes" : ChatColor.RED + "no") + ChatColor.GRAY;
     }
 
     public String[] getStats() {
         List<String> statFormatted = new ArrayList<>();
 
-        statFormatted.add("----------- " + ChatColor.BLUE + ChatColor.BOLD + "Invite Stats" + ChatColor.GRAY + " ----------");
+        statFormatted.add("----------[ " + ChatColor.AQUA + ChatColor.BOLD + "Invite Stats" + ChatColor.GRAY + " ]---------");
         statFormatted.add("Player: " + Main.formatName(selfPlayer));
         if (inviterPlayer != null)
             statFormatted.add("Inviter: " + Main.formatName(inviterPlayer));

@@ -188,7 +188,6 @@ public class DatabaseFunctions {
                             }
                         }
 
-
                         if (players.containsKey(invited.getUUID()))
                             players.get(invited.getUUID()).copyPlayer(new VertXPlayer(invited));
                         else
