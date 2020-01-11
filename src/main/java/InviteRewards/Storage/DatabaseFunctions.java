@@ -163,7 +163,6 @@ public class DatabaseFunctions {
         SequentialRunnable runnable = new SequentialRunnable() {
             @Override
             public RunnableResult run() {
-                Bukkit.getLogger().info("TERST");
             boolean success = sendCommand((connection) -> {
                 String sql = String.format("DELETE FROM %1$s WHERE %2$s=?", invitedToInviterTable.getName(), invitedUUIDColumn.getName());
                 Main.info(sql);

@@ -85,7 +85,7 @@ public class VertXPlayer {
     public String[] getStats() {
         List<String> statFormatted = new ArrayList<>();
 
-        statFormatted.add("----------- Invite Stats ----------");
+        statFormatted.add("----------- " + ChatColor.BLUE + "Invite Stats" + ChatColor.GRAY + " ----------");
         statFormatted.add("Player: " + selfPlayer.getUsername());
         if (inviterPlayer != null)
             statFormatted.add("Selected Inviter: " + inviterPlayer.getUsername());
@@ -160,8 +160,7 @@ public class VertXPlayer {
                     Main.getDataHandler().getPlayer(inviter).getCommander().setInvited(player);
 
                 } else {
-                    //todo: message player saying an error occurred
-                    Bukkit.getLogger().info("It fails");
+                    databaseError();
                 }
                 setFinished();
             });

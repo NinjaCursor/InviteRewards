@@ -26,7 +26,7 @@ public class CommandUtility {
     }
 
     public String getDependencyMessage() {
-        return "Please wait before using this command";
+        return "Please wait a while before using this command";
     }
 
 }
