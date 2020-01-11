@@ -1,10 +1,9 @@
 package InviteRewards.Listeners;
 
 import InviteRewards.CustomEvents.AwardedEvent;
-import InviteRewards.Main.Main;
+import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
-import InviteRewards.Storage.PlayerData;
-import org.bukkit.ChatColor;
+import VertXCommons.Storage.PlayerData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -16,12 +15,12 @@ public class AwardListener implements Listener {
         PlayerData invitedData = event.getInvitedData();
         PlayerData inviterData = event.getInviterData();
 
-        VertXPlayer invitedPlayer = Main.getDataHandler().getPlayer(invitedData);
-        VertXPlayer inviterPlayer = Main.getDataHandler().getPlayer(inviterData);
+        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
+        VertXPlayer inviterPlayer = InviteRewards.getDataHandler().getPlayer(inviterData);
 
-        invitedPlayer.msg(Main.formatName(inviterData) + " will receive an award");
+        invitedPlayer.msg(InviteRewards.formatName(inviterData) + " will receive an award");
 
-        inviterPlayer.msg(Main.formatName(invitedData) + " completed the invite reward program");
+        inviterPlayer.msg("You invited " + InviteRewards.formatName(invitedData) + " and you deserve an award!");
 
     }
 

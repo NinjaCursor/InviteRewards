@@ -1,7 +1,6 @@
 package InviteRewards.CustomEvents;
 
-import InviteRewards.Storage.PlayerData;
-import org.bukkit.Bukkit;
+import VertXCommons.Storage.PlayerData;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

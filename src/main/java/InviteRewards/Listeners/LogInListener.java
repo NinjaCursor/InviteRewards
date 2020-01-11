@@ -1,11 +1,9 @@
 package InviteRewards.Listeners;
 
 import InviteRewards.Main.HandleRequirements;
-import InviteRewards.Main.Main;
+import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
-import InviteRewards.Storage.PlayerData;
-import VertXTimeManagement.Main.TimeManagement;
-import org.bukkit.Bukkit;
+import VertXCommons.Storage.PlayerData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +26,7 @@ public class LogInListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         PlayerData playerData = new PlayerData(uuid, player.getDisplayName());
-        VertXPlayer vertXPlayer = Main.getDataHandler().getPlayer(playerData);
+        VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(playerData);
         HandleRequirements.end(vertXPlayer);
     }
 
@@ -37,7 +35,7 @@ public class LogInListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         PlayerData playerData = new PlayerData(uuid, player.getDisplayName());
-        VertXPlayer vertXPlayer = Main.getDataHandler().getPlayer(playerData);
+        VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(playerData);
 
         boolean wasInvited = false;
         if (vertXPlayer.getInviterPlayer() != null)

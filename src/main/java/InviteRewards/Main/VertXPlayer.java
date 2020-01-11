@@ -2,14 +2,10 @@ package InviteRewards.Main;
 
 import InviteRewards.CustomEvents.LockedInEvent;
 import InviteRewards.CustomEvents.MetRequirementsEvent;
-import InviteRewards.Storage.PlayerData;
+import VertXCommons.Storage.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -86,14 +82,14 @@ public class VertXPlayer {
         List<String> statFormatted = new ArrayList<>();
 
         statFormatted.add("----------[ " + ChatColor.AQUA + ChatColor.BOLD + "Invite Stats" + ChatColor.GRAY + " ]---------");
-        statFormatted.add("Player: " + Main.formatName(selfPlayer));
+        statFormatted.add("Player: " + InviteRewards.formatName(selfPlayer));
         if (inviterPlayer != null)
-            statFormatted.add("Inviter: " + Main.formatName(inviterPlayer));
+            statFormatted.add("Inviter: " + InviteRewards.formatName(inviterPlayer));
         else
             statFormatted.add("Inviter: " + ChatColor.RED + "none selected");
 
         statFormatted.add("Locked: " + getYesNo(locked));
-        statFormatted.add("Can give reward: " + getYesNo(satisfied));
+        statFormatted.add("Completed: " + getYesNo(satisfied));
 
         if (invitedPlayers.size() == 0)
             statFormatted.add("Invited: " + ChatColor.RED + "none");
@@ -105,7 +101,7 @@ public class VertXPlayer {
             String satisfiedNotification = ((vertXPlayer.isSatisfied()) ? ChatColor.GREEN + "completed" : ChatColor.RED + "not completed");
             String suffixString = ((vertXPlayer.isLocked()) ? ChatColor.GRAY + "locked" : ChatColor.RED + "not locked");
 
-            statFormatted.add(" - " + Main.formatName(vertXPlayer.getSelfPlayer()) + " " + suffixString + ChatColor.RESET + " | " + satisfiedNotification);
+            statFormatted.add(" - " + InviteRewards.formatName(vertXPlayer.getSelfPlayer()) + " " + suffixString + ChatColor.RESET + " | " + satisfiedNotification);
         }
 
         String[] arr = statFormatted.toArray(new String[0]);
@@ -113,7 +109,7 @@ public class VertXPlayer {
     }
 
     public void error(String message) {
-        Main.messageError(selfPlayer, message);
+        InviteRewards.messageError(selfPlayer, message);
     }
 
     private void databaseError() {
@@ -137,7 +133,7 @@ public class VertXPlayer {
             }
 
             if (isGiven()) {
-                error("The reward has already been given to " + Main.formatName(inviterPlayer));
+                error("The reward has already been given to " + InviteRewards.formatName(inviterPlayer));
                 return;
             }
 
@@ -146,26 +142,26 @@ public class VertXPlayer {
                 return;
             }
 
-            if (inviter.getUUID().equals(selfPlayer.getUUID())) {
+            if (inviter.getUuid().equals(selfPlayer.getUuid())) {
                 error("You cannot invite yourself");
                 return;
             }
             setRunning();
-            Main.getDataHandler().setInvited(inviter, selfPlayer).thenAccept((success) -> {
+            InviteRewards.getDataHandler().setInvited(inviter, selfPlayer).thenAccept((success) -> {
                 if (success) {
 
                     //setInvited for inviter
                     if (inviterPlayer != null) {
-                        Main.getDataHandler().getPlayer(inviterPlayer).getCommander().removeInvited(player);
+                        InviteRewards.getDataHandler().getPlayer(inviterPlayer).getCommander().removeInvited(player);
                     }
 
                     inviterPlayer = inviter;
 
-                    msg("You have selected " + Main.formatName(inviter) + " to receive your invite reward");
+                    msg("You have selected " + InviteRewards.formatName(inviter) + " to receive your invite reward");
                     msg("Type " + ChatColor.WHITE + "/inviteconfirm" + ChatColor.GRAY + " to confirm your selection");
 
                     //change inviterPlayer (PlayerData)
-                    Main.getDataHandler().getPlayer(inviter).getCommander().setInvited(player);
+                    InviteRewards.getDataHandler().getPlayer(inviter).getCommander().setInvited(player);
 
 
                 } else {
@@ -174,7 +170,7 @@ public class VertXPlayer {
                 setFinished();
             }).exceptionally((exception) -> {
                 setFinished();
-                Main.info(exception.getMessage());
+                InviteRewards.info(exception.getMessage());
                 return null;
             });
         }
@@ -205,9 +201,9 @@ public class VertXPlayer {
             }
 
             setRunning();
-            Main.getDataHandler().setConfirmed(selfPlayer).thenAcceptAsync((success) -> {
+            InviteRewards.getDataHandler().setConfirmed(selfPlayer).thenAcceptAsync((success) -> {
                 if (success) {
-                    Main.runSync(new Runnable() {
+                    InviteRewards.runSync(new Runnable() {
                         @Override
                         public void run() {
                             Bukkit.getPluginManager().callEvent(new LockedInEvent(inviterPlayer, selfPlayer));
@@ -221,13 +217,13 @@ public class VertXPlayer {
                 setFinished();
             }).exceptionally((exception) -> {
                 setFinished();
-                Main.info(exception.getMessage());
+                InviteRewards.info(exception.getMessage());
                 return null;
             });
         }
 
         public void setGiven() {
-            Main.getDataHandler().setGiven(selfPlayer).thenAccept((success) -> {
+            InviteRewards.getDataHandler().setGiven(selfPlayer).thenAccept((success) -> {
                 if (success) {
                     given = true;
                 } else {
@@ -238,10 +234,10 @@ public class VertXPlayer {
 
         public void setSatisfied() {
 
-            Main.getDataHandler().setSatisfied(selfPlayer).thenAccept((success) -> {
+            InviteRewards.getDataHandler().setSatisfied(selfPlayer).thenAccept((success) -> {
                 if (success) {
                     satisfied = true;
-                    Main.runSync(new Runnable() {
+                    InviteRewards.runSync(new Runnable() {
                         @Override
                         public void run() {
                             Bukkit.getPluginManager().callEvent(new MetRequirementsEvent(inviterPlayer, selfPlayer));
@@ -284,11 +280,11 @@ public class VertXPlayer {
 
     public void showRequirements()  {
         msg("Invite Reward Requirements");
-        msg(" - " + Main.minTotalTime + "m on the server");
+        msg(" - " + InviteRewards.minTotalTime + "m on the server");
     }
 
     public void msg(String message) {
-        Main.msg(selfPlayer, message);
+        InviteRewards.msg(selfPlayer, message);
     }
 
     public PlayerData getSelfPlayer() {

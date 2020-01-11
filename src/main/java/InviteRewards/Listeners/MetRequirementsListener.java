@@ -2,9 +2,9 @@ package InviteRewards.Listeners;
 
 import InviteRewards.CustomEvents.AwardedEvent;
 import InviteRewards.CustomEvents.MetRequirementsEvent;
-import InviteRewards.Main.Main;
+import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
-import InviteRewards.Storage.PlayerData;
+import VertXCommons.Storage.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -18,7 +18,7 @@ public class MetRequirementsListener implements Listener {
         PlayerData invitedData = event.getInvitedData();
         PlayerData inviterData = event.getInviterData();
 
-        VertXPlayer invitedPlayer = Main.getDataHandler().getPlayer(invitedData);
+        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
 
         invitedPlayer.msg("" + ChatColor.RESET + ChatColor.GREEN + ChatColor.BOLD + "Congratulations!" + ChatColor.AQUA + ChatColor.BOLD + " You completed the Invite Rewards Program!");
 

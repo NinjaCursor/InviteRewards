@@ -1,7 +1,7 @@
 package InviteRewards.UsernameConverter;
 
-import InviteRewards.Main.Main;
-import InviteRewards.Storage.PlayerData;
+import InviteRewards.Main.InviteRewards;
+import VertXCommons.Storage.PlayerData;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -55,12 +55,12 @@ public class UsernameConverter {
                     JSONObject UUIDObject = readJsonFromUrl(url);
                     String uuidString = UUIDObject.get("id").toString();
                     UUID uuid = getUUIDFromString(uuidString);
-                    Main.info("Marker SUCCESS in UsernameConverter");
+                    InviteRewards.info("Marker SUCCESS in UsernameConverter");
                     return new PlayerData(uuid, username);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Main.info("Mission Failed");
+                InviteRewards.info("Mission Failed");
                 return null;
         });
     }

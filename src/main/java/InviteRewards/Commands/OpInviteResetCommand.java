@@ -1,6 +1,6 @@
 package InviteRewards.Commands;
 
-import InviteRewards.Main.Main;
+import InviteRewards.Main.InviteRewards;
 import InviteRewards.UsernameConverter.UsernameConverter;
 import org.bukkit.command.CommandSender;
 
@@ -14,8 +14,8 @@ public class OpInviteResetCommand extends CommandAsset {
         String playerName = args[0];
         UsernameConverter.getPlayerData(playerName).thenAccept((playerData) -> {
             if (playerData != null) {
-                Main.getDataHandler().forceReset(playerData).thenAccept((success) -> {
-                   Main.runSync(new Runnable() {
+                InviteRewards.getDataHandler().forceReset(playerData).thenAccept((success) -> {
+                   InviteRewards.runSync(new Runnable() {
                        @Override
                        public void run() {
                            if (success)

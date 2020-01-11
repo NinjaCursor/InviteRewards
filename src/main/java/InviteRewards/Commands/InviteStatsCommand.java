@@ -1,9 +1,8 @@
 package InviteRewards.Commands;
 
-import InviteRewards.Main.Main;
-import InviteRewards.Storage.PlayerData;
+import InviteRewards.Main.InviteRewards;
 import InviteRewards.UsernameConverter.UsernameConverter;
-import org.bukkit.Bukkit;
+import VertXCommons.Storage.PlayerData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -19,7 +18,7 @@ public class InviteStatsCommand extends CommandAsset {
         UsernameConverter.getPlayerData(playerName).thenAccept((playerData) -> {
 
             if(playerData == null) {
-                Main.runSync(new Runnable() {
+                InviteRewards.runSync(new Runnable() {
                     @Override
                     public void run() {
                         sender.sendMessage("Could not find given player");
@@ -28,14 +27,14 @@ public class InviteStatsCommand extends CommandAsset {
                 return;
             }
 
-            String[] playerInviteData = Main.getDataHandler().getPlayer(playerData).getStats();
-            Main.runSync(new Runnable() {
+            String[] playerInviteData = InviteRewards.getDataHandler().getPlayer(playerData).getStats();
+            InviteRewards.runSync(new Runnable() {
                 @Override
                 public void run() {
                     Player player = (Player) sender;
                     PlayerData viewer = new PlayerData(player.getUniqueId(), player.getPlayerListName());
                     for (String message : playerInviteData) {
-                        Main.msg(viewer, message);
+                        InviteRewards.msg(viewer, message);
                     }
 
                 }

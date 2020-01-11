@@ -1,9 +1,8 @@
 package InviteRewards.Commands;
 
-import InviteRewards.Main.Main;
+import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
-import InviteRewards.Storage.DatabaseFunctions;
-import InviteRewards.Storage.PlayerData;
+import VertXCommons.Storage.PlayerData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -16,7 +15,7 @@ public class InviteRequirementCommand extends CommandAsset {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
-        VertXPlayer vertXPlayer = Main.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getPlayerListName()));
+        VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getPlayerListName()));
         vertXPlayer.showRequirements();
         return true;
     }

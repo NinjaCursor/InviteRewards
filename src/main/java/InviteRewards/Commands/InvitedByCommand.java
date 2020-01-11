@@ -1,10 +1,9 @@
 package InviteRewards.Commands;
 
-import InviteRewards.Main.CommandUtility;
-import InviteRewards.Main.Main;
+import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
-import InviteRewards.Storage.PlayerData;
 import InviteRewards.UsernameConverter.UsernameConverter;
+import VertXCommons.Storage.PlayerData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -19,10 +18,10 @@ public class InvitedByCommand extends CommandAsset {
         Player player = (Player) sender;
         String inviterUsername = args[0];
         UsernameConverter.getPlayerData(inviterUsername).thenAccept((inviterPlayerData) -> {
-            Main.runSync(new Runnable() {
+            InviteRewards.runSync(new Runnable() {
                 @Override
                 public void run() {
-                    VertXPlayer invitedPlayer = Main.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getPlayerListName()));
+                    VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(new PlayerData(player.getUniqueId(), player.getPlayerListName()));
                     if (inviterPlayerData == null) {
                         invitedPlayer.error("Could not find player \"" + inviterUsername + "\"");
                         return;

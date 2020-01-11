@@ -1,10 +1,8 @@
 package InviteRewards.Main;
 
-import InviteRewards.Storage.PlayerData;
 import VertXTimeManagement.Main.TimeManagement;
 import org.bukkit.Bukkit;
 
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,7 +11,7 @@ public class HandleRequirements {
     private static ConcurrentHashMap<UUID, Integer> playerTaskIDs = new ConcurrentHashMap<>();
 
     public static void end(VertXPlayer vertXPlayer) {
-        UUID uuid = vertXPlayer.getSelfPlayer().getUUID();
+        UUID uuid = vertXPlayer.getSelfPlayer().getUuid();
         if (playerTaskIDs.containsKey(uuid)) {
             Bukkit.getScheduler().cancelTask(playerTaskIDs.get(uuid));
             playerTaskIDs.remove(uuid);
@@ -29,28 +27,28 @@ public class HandleRequirements {
         else
             wasInvited = false;
 
-        TimeManagement.getBasicInfo(vertXPlayer.getSelfPlayer().getUUID()).thenAccept((dataContainer) -> {
+        TimeManagement.getBasicInfo(vertXPlayer.getSelfPlayer().getUuid()).thenAccept((dataContainer) -> {
 
             long minutesPlayed = dataContainer.getTotalTime() / (1000 * 60);
-            long minutesLeft = Main.minTotalTime-minutesPlayed;
+            long minutesLeft = InviteRewards.minTotalTime-minutesPlayed;
 
             //check if they really did not satisify requirements
-            if (minutesPlayed < Main.minTotalTime) {
+            if (minutesPlayed < InviteRewards.minTotalTime) {
 
                 if (wasInvited) {
-                    Main.msg(vertXPlayer.getSelfPlayer(), "For " + vertXPlayer.getInviterPlayer().getUsername() + " to receive your invite reward");
-                    Main.msg(vertXPlayer.getSelfPlayer(), "play for " + minutesLeft + " more minute(s)");
+                    InviteRewards.msg(vertXPlayer.getSelfPlayer(), "For " + vertXPlayer.getInviterPlayer().getName() + " to receive your invite reward");
+                    InviteRewards.msg(vertXPlayer.getSelfPlayer(), "play for " + minutesLeft + " more minute(s)");
                 }
 
-                int taskToken = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
+                int taskToken = Bukkit.getScheduler().scheduleSyncDelayedTask(InviteRewards.getPlugin(), new Runnable() {
                     @Override
                     public void run() {
-                        Main.getDataHandler().getPlayer(vertXPlayer.getSelfPlayer()).getCommander().setSatisfied();
+                        InviteRewards.getDataHandler().getPlayer(vertXPlayer.getSelfPlayer()).getCommander().setSatisfied();
                         playerTaskIDs.remove(vertXPlayer.getSelfPlayer());
                     }
                 }, minutesLeft*60*20);
 
-                playerTaskIDs.put(vertXPlayer.getSelfPlayer().getUUID(), taskToken);
+                playerTaskIDs.put(vertXPlayer.getSelfPlayer().getUuid(), taskToken);
 
             } else {
                 vertXPlayer.getCommander().setSatisfied();
