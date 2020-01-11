@@ -18,7 +18,7 @@ public class InvitedByCommand extends CommandAsset {
     public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
         String inviterUsername = args[0];
-        Main.info("Marker 1");
+
         UsernameConverter.getPlayerData(inviterUsername).thenAccept((inviterPlayerData) -> {
             Main.runSync(new Runnable() {
                 @Override
