@@ -20,12 +20,13 @@ public class MetRequirementsListener implements Listener {
 
         VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
 
-        invitedPlayer.msg("" + ChatColor.RESET + ChatColor.GREEN + ChatColor.BOLD + "Congratulations!" + ChatColor.AQUA + ChatColor.BOLD + " You completed the Invite Rewards Program!");
+        invitedPlayer.msg("" + ChatColor.RESET + ChatColor.GREEN + ChatColor.BOLD + "CONGRATULATIONS!");
+        invitedPlayer.msg("" + ChatColor.AQUA + "You completed the Invite Rewards Program time requirements!");
 
         if (invitedPlayer.isLocked())
             Bukkit.getPluginManager().callEvent(new AwardedEvent(inviterData, invitedData));
         else {
-            invitedPlayer.msg("" + ChatColor.RESET + ChatColor.RED + ChatColor.BOLD +  "You still need to select the player who invited you!");
+            invitedPlayer.error("You still need to select the player who invited you!");
         }
 
 
