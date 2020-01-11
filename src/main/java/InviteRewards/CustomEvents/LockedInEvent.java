@@ -16,7 +16,6 @@ public class LockedInEvent extends Event implements Cancellable {
     public LockedInEvent(PlayerData inviterData, PlayerData invitedData) {
         this.inviterData = inviterData;
         this.invitedData = invitedData;
-        Bukkit.getLogger().info("CREATED LOCKEDINEVENT");
     }
 
     public PlayerData getInviterData() {

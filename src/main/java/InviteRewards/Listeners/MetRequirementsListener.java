@@ -14,8 +14,6 @@ public class MetRequirementsListener implements Listener {
     @EventHandler
     public void onSatisfied(MetRequirementsEvent event) {
 
-        Main.info("Satisfied Event");
-
         PlayerData invitedData = event.getInvitedData();
         PlayerData inviterData = event.getInviterData();
 

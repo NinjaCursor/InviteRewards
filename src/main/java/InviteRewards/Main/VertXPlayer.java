@@ -83,10 +83,6 @@ public class VertXPlayer {
     }
 
     public String[] getStats() {
-        Bukkit.getLogger().info("START");
-        Bukkit.getLogger().info("START");
-        Bukkit.getLogger().info("START");
-        Bukkit.getLogger().info("START");
         List<String> statFormatted = new ArrayList<>();
 
         statFormatted.add("----------- Invite Stats ----------");
@@ -109,14 +105,6 @@ public class VertXPlayer {
         }
 
         String[] arr = statFormatted.toArray(new String[0]);
-        Bukkit.getLogger().info("STOP");
-        Bukkit.getLogger().info("STOP");
-        Bukkit.getLogger().info("STOP");
-        Bukkit.getLogger().info("STOP");
-        Bukkit.getLogger().info("STOP");
-        Bukkit.getLogger().info("STOP");
-        Bukkit.getLogger().info("STOP");
-        Bukkit.getLogger().info("STOP");
         return arr;
     }
 
@@ -130,8 +118,6 @@ public class VertXPlayer {
     }
 
     public class PlayerCommander extends CommandUtility {
-
-
 
         private VertXPlayer player;
 

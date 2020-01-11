@@ -116,11 +116,6 @@ public class DatabaseFunctions {
 
         for (VertXPlayer.VertXPlayerLoader loader : playersLoading.values()) {
 
-            if (loader.getInviterPlayer() == null)
-                Bukkit.getLogger().info("Loading " + loader.getSelfPlayer().getUsername() + " with no inviter");
-            else
-                Bukkit.getLogger().info("Loading " + loader.getSelfPlayer().getUsername() + " with inviter " + loader.getInviterPlayer().getUsername());
-
             ArrayList<VertXPlayer> vertXPlayers = new ArrayList<>();
             for (PlayerData playerData : loader.getInvitedPlayers()) {
                 vertXPlayers.add(players.get(playerData.getUUID()));

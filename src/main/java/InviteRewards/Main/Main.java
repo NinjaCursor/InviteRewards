@@ -48,22 +48,11 @@ public class Main extends JavaPlugin {
         return ChatColor.YELLOW + "" + playerData.getUsername() + ChatColor.GRAY;
     }
 
-    public class Stuff implements Listener {
-        @EventHandler
-        public void onLogin(AwardedEvent event) {
-
-        }
-    }
-
     @Override
     public void onEnable() {
         plugin = this;
         createConfig();
 
-        Bukkit.getServer().getPluginManager().registerEvents(new Stuff(), this);
-
-        if (this==null)
-            Bukkit.getLogger().info("SDFSDFSDFSDFSFSDFSDFSDF");
 
         Bukkit.getServer().getPluginManager().registerEvents(new AwardListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new LockedInListener(), this);
