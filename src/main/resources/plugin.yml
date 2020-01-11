@@ -2,7 +2,7 @@ name: InviteRewards
 main: InviteRewards.Main.InviteRewards
 version: 1.0
 api-version: 1.13
-depend: [ VertXTimeManagement ]
+depend: [ VertXTimeManagement, PlaceholderAPI ]
 commands:
   invitedby:
     description: select player who invited you

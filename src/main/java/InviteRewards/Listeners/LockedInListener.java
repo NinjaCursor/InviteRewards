@@ -5,6 +5,7 @@ import InviteRewards.CustomEvents.LockedInEvent;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
 import VertXCommons.Storage.PlayerData;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +26,7 @@ public class LockedInListener implements Listener {
         if (inviterData == null) {
             InviteRewards.info("inviterData is null");
         }
+
 
 
         invitedPlayer.msg("You have locked in " + InviteRewards.formatName(inviterData) + " to receive your invite reward");

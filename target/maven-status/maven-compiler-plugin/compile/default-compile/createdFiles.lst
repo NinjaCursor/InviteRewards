@@ -21,6 +21,7 @@ InviteRewards\Commands\InvitedConfirmCommand.class
 InviteRewards\Main\HandleRequirements.class
 InviteRewards\Storage\DatabaseFunctions$3.class
 InviteRewards\Commands\InviteStatsCommand.class
+InviteRewards\Main\InviteRewards$1.class
 InviteRewards\Listeners\LockedInListener.class
 InviteRewards\Main\VertXPlayer.class
 InviteRewards\Commands\InvitedByCommand$1.class

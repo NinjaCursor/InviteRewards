@@ -4,6 +4,7 @@ import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
 import InviteRewards.UsernameConverter.UsernameConverter;
 import VertXCommons.Storage.PlayerData;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -16,6 +17,8 @@ public class InvitedByCommand extends CommandAsset {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
+
+        player.sendMessage(PlaceholderAPI.setPlaceholders(player, "%inviterewards_brief_stats% %locked%"));
         String inviterUsername = args[0];
         UsernameConverter.getPlayerData(inviterUsername).thenAccept((inviterPlayerData) -> {
             InviteRewards.runSync(new Runnable() {

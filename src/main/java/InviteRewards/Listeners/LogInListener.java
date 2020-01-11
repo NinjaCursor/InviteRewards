@@ -4,6 +4,7 @@ import InviteRewards.Main.HandleRequirements;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
 import VertXCommons.Storage.PlayerData;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,7 +33,9 @@ public class LogInListener implements Listener {
 
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
+
         Player player = event.getPlayer();
+
         UUID uuid = player.getUniqueId();
         PlayerData playerData = new PlayerData(uuid, player.getDisplayName());
         VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(playerData);
