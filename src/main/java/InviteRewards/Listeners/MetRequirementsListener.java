@@ -6,6 +6,7 @@ import InviteRewards.Main.Main;
 import InviteRewards.Main.VertXPlayer;
 import InviteRewards.Storage.PlayerData;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -19,12 +20,14 @@ public class MetRequirementsListener implements Listener {
 
         VertXPlayer invitedPlayer = Main.getDataHandler().getPlayer(invitedData);
 
-        invitedPlayer.msg("You have met the invite reward program requirements");
+        invitedPlayer.msg("" + ChatColor.RESET + ChatColor.GREEN + ChatColor.BOLD + "Congratulations!" + ChatColor.AQUA + ChatColor.BOLD + " You completed the Invite Rewards Program!");
 
         if (invitedPlayer.isLocked())
             Bukkit.getPluginManager().callEvent(new AwardedEvent(inviterData, invitedData));
-        else
-            invitedPlayer.msg("Please lock in your invite selection for your inviter to receive an award");
+        else {
+            invitedPlayer.msg("" + ChatColor.RESET + ChatColor.RED + ChatColor.BOLD +  "You still need to select the player who invited you!");
+        }
+
 
     }
 
