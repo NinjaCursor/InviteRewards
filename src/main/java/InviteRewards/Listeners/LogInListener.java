@@ -40,7 +40,7 @@ public class LogInListener implements Listener {
         VertXPlayer vertXPlayer = Main.getDataHandler().getPlayer(playerData);
 
         Main.info("aasdfas;ldkfja;lksdfja;skldfj;alkjdsf");
-        Main.info("You suck");
+
         boolean wasInvited = false;
         if (vertXPlayer.getInviterPlayer() != null)
             wasInvited = true;
