@@ -24,6 +24,7 @@ public class InviteRewards extends JavaPlugin {
     private static InvitedByCommand invitedByCommand;
     private static InvitedConfirmCommand invitedConfirmCommand;
     private static InviteStatsCommand inviteStatsCommand;
+    private static String defaultColor;
 
     public static String getInvitedByCommandName() {
         return invitedByCommand.getCommandName();
@@ -52,7 +53,7 @@ public class InviteRewards extends JavaPlugin {
     public static void msg(PlayerData playerData, String message) {
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {
             if(p.getUniqueId().equals(playerData.getUuid())) {
-                p.sendMessage(ChatColor.GRAY + ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(p, message)));
+                p.sendMessage(defaultColor + ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(p, message).replace("&r", defaultColor)));
             }
         }
 
@@ -91,6 +92,7 @@ public class InviteRewards extends JavaPlugin {
         minLogins = getConfig().getInt("logins");
         minLoginTime = getConfig().getInt("login-min");
         minTotalTime = getConfig().getInt("totaltime");
+        defaultColor = ChatColor.translateAlternateColorCodes('&', getConfig().getString("default-color"));
 
         invitedByCommand = new InvitedByCommand("invitedby" , "");
         invitedConfirmCommand = new InvitedConfirmCommand("inviteconfirm", "");
@@ -101,12 +103,9 @@ public class InviteRewards extends JavaPlugin {
         getCommand("invitestats").setExecutor(inviteStatsCommand);
         getCommand("opinvitereset").setExecutor(new OpInviteResetCommand("opinvitereset", "invite.admin"));
 
-        PlaceholderLibrary library = new PlaceholderLibrary();
-        library.hook();
-
+        PlaceholderLibrary library = new PlaceholderLibrary(this);
+        PlaceholderAPI.registerExpansion(library);
     }
-
-
 
     public static void runSync(Runnable runnable) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(InviteRewards.getPlugin(), runnable);

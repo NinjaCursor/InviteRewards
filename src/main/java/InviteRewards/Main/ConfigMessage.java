@@ -17,9 +17,9 @@ public class ConfigMessage {
     }
 
     public void sendMessage(PlayerData receiverData, PlayerData placeholderPlayer) {
-        OfflinePlayer player = Bukkit.getPlayer(placeholderPlayer.getUuid());
+        OfflinePlayer player = Bukkit.getOfflinePlayer(placeholderPlayer.getUuid());
         for (String message : messages) {
-            InviteRewards.msg(receiverData, PlaceholderAPI.setPlaceholders((Player) player, message));
+            InviteRewards.msg(receiverData, PlaceholderAPI.setPlaceholders(player, message));
         }
     }
 

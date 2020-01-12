@@ -19,6 +19,8 @@ invite-stats:
   - "Progress: %invplugin_progress%"
   - "Invited: %invplugin_invited_count%"
 
+default-color: "&7&r"
+
 invite-list-structure:
   - " - %invplugin_self%: %invplugin_brief_stats"
 
@@ -40,7 +42,7 @@ award-message:
     - "%invplugin_inviter% will now receive a reward%"
   inviter:
     - "CONGRATULATIONS!"
-    - "You invited %invplugin_most_recent_invited_completion%, which means you get a reward!"
+    - "You invited %invplugin_most_recent_invited_completed%, which means you get a reward!"
 
 locked-message:
   invited:
@@ -58,7 +60,6 @@ completed-message:
 
 selected-message:
   invited:
-    - ""
-    - ""
+    - "You selected %invplugin_inviter% to be your inviter"
   inviter:
-    - ""
+    - "%invplugin_most_recent_invited_selected% is thinking to choose you to receive their invite reward"

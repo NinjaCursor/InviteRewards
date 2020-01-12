@@ -18,7 +18,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class VertXPlayer {
 
-
     public static class VertXPlayerLoader {
 
         private PlayerData selfPlayer, inviterPlayer;
@@ -79,40 +78,6 @@ public class VertXPlayer {
         }
     }
 
-    private String getYesNo(boolean trueOrFalse) {
-        return ((trueOrFalse) ? ChatColor.GREEN + "yes" : ChatColor.RED + "no") + ChatColor.GRAY;
-    }
-
-    public String[] getStats() {
-        List<String> statFormatted = new ArrayList<>();
-
-        statFormatted.add("----------[ " + ChatColor.AQUA + ChatColor.BOLD + "Invite Stats" + ChatColor.GRAY + " ]---------");
-        statFormatted.add("Player: " + InviteRewards.formatName(selfPlayer));
-        if (inviterPlayer != null)
-            statFormatted.add("Inviter: " + InviteRewards.formatName(inviterPlayer));
-        else
-            statFormatted.add("Inviter: " + ChatColor.RED + "none selected");
-
-        statFormatted.add("Locked: " + getYesNo(locked));
-        statFormatted.add("Completed: " + getYesNo(satisfied));
-
-        if (invitedPlayers.size() == 0)
-            statFormatted.add("Invited: " + ChatColor.RED + "none");
-        else
-            statFormatted.add("Invited: ");
-
-
-        for (VertXPlayer vertXPlayer : invitedPlayers) {
-            String satisfiedNotification = ((vertXPlayer.isSatisfied()) ? ChatColor.GREEN + "completed" : ChatColor.RED + "not completed");
-            String suffixString = ((vertXPlayer.isLocked()) ? ChatColor.GRAY + "locked" : ChatColor.RED + "not locked");
-
-            statFormatted.add(" - " + InviteRewards.formatName(vertXPlayer.getSelfPlayer()) + " " + suffixString + ChatColor.RESET + " | " + satisfiedNotification);
-        }
-
-        String[] arr = statFormatted.toArray(new String[0]);
-        return arr;
-    }
-
     public void error(String message) {
         InviteRewards.messageError(selfPlayer, message);
     }
@@ -120,6 +85,38 @@ public class VertXPlayer {
     private void databaseError() {
         error("A database issue occurred, so your command could not be executed");
         error("Please contact the server admin about this problem");
+    }
+
+    public class PlaceholderData {
+        private PlayerData locked, completed, selected;
+
+        public PlaceholderData() {
+            this.locked = this.completed = this.selected = null;
+        }
+
+        public PlayerData getLocked() {
+            return locked;
+        }
+
+        public void setLocked(PlayerData locked) {
+            this.locked = locked;
+        }
+
+        public PlayerData getCompleted() {
+            return completed;
+        }
+
+        public void setCompleted(PlayerData completed) {
+            this.completed = completed;
+        }
+
+        public PlayerData getSelected() {
+            return selected;
+        }
+
+        public void setSelected(PlayerData selected) {
+            this.selected = selected;
+        }
     }
 
     public class PlayerCommander extends CommandUtility {
@@ -154,25 +151,31 @@ public class VertXPlayer {
 
             setRunning();
             InviteRewards.getDataHandler().setInvited(inviter, selfPlayer).thenAccept((success) -> {
-                if (success) {
+                InviteRewards.runSync(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (success) {
 
-                    Bukkit.getPluginManager().callEvent(new InviteSelectionEvent(new EventPackage(inviter, selfPlayer)));
 
-                    //setInvited for inviter
-                    if (inviterPlayer != null) {
-                        InviteRewards.getDataHandler().getPlayer(inviterPlayer).getCommander().removeInvited(player);
+                            //setInvited for inviter
+                            if (inviterPlayer != null) {
+                                InviteRewards.getDataHandler().getPlayer(inviterPlayer).getCommander().removeInvited(player);
+                            }
+
+                            inviterPlayer = inviter;
+
+                            //change inviterPlayer (PlayerData)
+                            InviteRewards.getDataHandler().getPlayer(inviter).getCommander().setInvited(player);
+                            Bukkit.getPluginManager().callEvent(new InviteSelectionEvent(new EventPackage(inviter, selfPlayer)));
+                            setFinished();
+
+                        } else {
+                            databaseError();
+                        }
                     }
-
-                    inviterPlayer = inviter;
-
-                    //change inviterPlayer (PlayerData)
-                    InviteRewards.getDataHandler().getPlayer(inviter).getCommander().setInvited(player);
+                });
 
 
-                } else {
-                    databaseError();
-                }
-                setFinished();
             }).exceptionally((exception) -> {
                 setFinished();
                 InviteRewards.info(exception.getMessage());
@@ -262,25 +265,40 @@ public class VertXPlayer {
     Set<VertXPlayer> invitedPlayers;
     private PlayerCommander commander;
     private boolean given, locked, satisfied;
+    private PlaceholderData mostRecentData;
+    private long timePlayed;
+
+    private void setup(PlayerData selfPlayer) {
+        mostRecentData = new PlaceholderData();
+        this.selfPlayer = selfPlayer;
+        timePlayed = -1;
+        TimeManagement.getBasicInfo(selfPlayer.getUuid()).thenAccept(data -> {
+            timePlayed = data.getTotalTime();
+        });
+    }
 
     public VertXPlayer(PlayerData selfPlayer) {
+        setup(selfPlayer);
         given = false;
         locked = false;
         satisfied = false;
-        this.selfPlayer = selfPlayer;
         this.inviterPlayer = null;
         invitedPlayers = new HashSet<>();
         commander = new PlayerCommander(this);
     }
 
     public VertXPlayer(final PlayerData selfPlayer, final PlayerData inviterPlayer, final ArrayList<VertXPlayer> invitedPlayers, boolean locked, boolean given, boolean satisfied) {
+        setup(selfPlayer);
         this.commander = new PlayerCommander(this);
-        this.selfPlayer = selfPlayer;
         this.inviterPlayer = inviterPlayer;
         this.invitedPlayers = new HashSet<>(invitedPlayers);
         this.locked = locked;
         this.given = given;
         this.satisfied = satisfied;
+    }
+
+    public PlaceholderData getMostRecent() {
+        return mostRecentData;
     }
 
     public void msg(String message) {
@@ -324,22 +342,19 @@ public class VertXPlayer {
         satisfied = vertXPlayer.isSatisfied();
     }
 
-    public CompletableFuture<Long> getTimePlayed() {
-        return TimeManagement.getBasicInfo(selfPlayer.getUuid()).thenApply((data) -> {
-            return data.getTotalTime();
-        });
+    public long getTimePlayed() {
+        return timePlayed;
     }
 
-    public CompletableFuture<Long> getTimeLeft() {
-        return getTimePlayed().thenApply((totalTimePlayed) -> {
-           return (long) (InviteRewards.minTotalTime - (1.0*totalTimePlayed)/(60.0*1000.0));
-        });
-    }
+    public int getProgress() {
+        PublicDataContainer data = TimeManagement.getLoginHandler().getDataImmediate(selfPlayer.getUuid());
 
-    public CompletableFuture<Integer> getProgress() {
-        return getTimePlayed().thenApply((totalTimePlayed) -> {
-           double percentage = (totalTimePlayed*1.0) / (InviteRewards.minTotalTime *1000*60);
-           return (int) percentage;
-        });
+        if (data == null)
+            return -1;
+
+        double percentage = (data.getTotalTime()*1.0) / (InviteRewards.minTotalTime *1000*60);
+        if (percentage > 1)
+            return 100;
+        return (int) (percentage*100);
     }
 }

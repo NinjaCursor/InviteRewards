@@ -38,10 +38,17 @@ public class InviteStatsCommand extends CommandAsset {
                 @Override
                 public void run() {
                     Player player = (Player) sender;
+
+
                     PlayerData viewer = new PlayerData(player.getUniqueId(), player.getPlayerListName());
 
-                    VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(viewer);
+
+
+
+                    VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(playerData);
                     Set<VertXPlayer> invitedPlayers = vertXPlayer.getInvitedPlayers();
+
+                    InviteRewards.msg(viewer, vertXPlayer.getSelfPlayer().getName());
 
                     statsMessage.sendMessage(viewer, playerData);
 
