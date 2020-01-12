@@ -13,7 +13,7 @@ public class InviteSelectionListener extends DualMessage implements Listener {
 
     @EventHandler
     public void onInviteSelection(InviteSelectionEvent event) {
-        sendMessages(event.getInvitedData(), event.getInviterData());
+        sendMessages(event.getEventPackage());
     }
 
 }

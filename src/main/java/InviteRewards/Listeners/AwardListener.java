@@ -17,7 +17,7 @@ public class AwardListener extends DualMessage implements Listener {
 
     @EventHandler
     public void onAward(AwardedEvent event) {
-        sendMessages(event.getInvitedData(), event.getInviterData());
+        sendMessages(event.getEventPackage());
     }
 
 }

@@ -24,15 +24,12 @@ public class MetRequirementsListener extends DualMessage implements Listener {
     @EventHandler
     public void onSatisfied(MetRequirementsEvent event) {
 
-        PlayerData invitedData = event.getInvitedData();
-        PlayerData inviterData = event.getInviterData();
+        sendMessages(event.getEventPackage());
 
-        sendMessages(invitedData, inviterData);
-
-        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
+        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(event.getEventPackage().getInvitedData());
 
         if (invitedPlayer.isLocked())
-            Bukkit.getPluginManager().callEvent(new AwardedEvent(inviterData, invitedData));
+            Bukkit.getPluginManager().callEvent(new AwardedEvent(event.getEventPackage()));
         else {
             invitedPlayer.error("You still need to select the player who invited you!");
         }

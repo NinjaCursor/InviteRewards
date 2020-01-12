@@ -1,5 +1,6 @@
 package InviteRewards.Main;
 
+import InviteRewards.CustomEvents.EventPackage;
 import InviteRewards.CustomEvents.InviteSelectionEvent;
 import InviteRewards.CustomEvents.LockedInEvent;
 import InviteRewards.CustomEvents.MetRequirementsEvent;
@@ -155,7 +156,7 @@ public class VertXPlayer {
             InviteRewards.getDataHandler().setInvited(inviter, selfPlayer).thenAccept((success) -> {
                 if (success) {
 
-                    Bukkit.getPluginManager().callEvent(new InviteSelectionEvent());
+                    Bukkit.getPluginManager().callEvent(new InviteSelectionEvent(new EventPackage(inviter, selfPlayer)));
 
                     //setInvited for inviter
                     if (inviterPlayer != null) {
@@ -210,7 +211,7 @@ public class VertXPlayer {
                     InviteRewards.runSync(new Runnable() {
                         @Override
                         public void run() {
-                            Bukkit.getPluginManager().callEvent(new LockedInEvent(inviterPlayer, selfPlayer));
+                            Bukkit.getPluginManager().callEvent(new LockedInEvent(new EventPackage(inviterPlayer, selfPlayer)));
                         }
                     });
 
@@ -244,7 +245,7 @@ public class VertXPlayer {
                     InviteRewards.runSync(new Runnable() {
                         @Override
                         public void run() {
-                            Bukkit.getPluginManager().callEvent(new MetRequirementsEvent(inviterPlayer, selfPlayer));
+                            Bukkit.getPluginManager().callEvent(new MetRequirementsEvent(new EventPackage(inviterPlayer, selfPlayer)));
                         }
                     });
 
