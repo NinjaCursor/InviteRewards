@@ -79,6 +79,7 @@ public class InviteRewards extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new LockedInListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new LogInListener(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new MetRequirementsListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new InviteSelectionListener(), this);
 
         dataHandler = new DatabaseFunctions();
         if (!dataHandler.setup()) {

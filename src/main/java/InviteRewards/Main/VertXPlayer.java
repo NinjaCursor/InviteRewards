@@ -3,6 +3,8 @@ package InviteRewards.Main;
 import InviteRewards.CustomEvents.LockedInEvent;
 import InviteRewards.CustomEvents.MetRequirementsEvent;
 import VertXCommons.Storage.PlayerData;
+import VertXTimeManagement.Main.TimeManagement;
+import VertXTimeManagement.Storage.PublicDataContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class VertXPlayer {
 
@@ -278,11 +281,6 @@ public class VertXPlayer {
         this.satisfied = satisfied;
     }
 
-    public void showRequirements()  {
-        msg("Invite Reward Requirements");
-        msg(" - " + InviteRewards.minTotalTime + "m on the server");
-    }
-
     public void msg(String message) {
         InviteRewards.msg(selfPlayer, message);
     }
@@ -322,5 +320,24 @@ public class VertXPlayer {
         locked = vertXPlayer.isLocked();
         given = vertXPlayer.isGiven();
         satisfied = vertXPlayer.isSatisfied();
+    }
+
+    public CompletableFuture<Long> getTimePlayed() {
+        return TimeManagement.getBasicInfo(selfPlayer.getUuid()).thenApply((data) -> {
+            return data.getTotalTime();
+        });
+    }
+
+    public CompletableFuture<Long> getTimeLeft() {
+        return getTimePlayed().thenApply((totalTimePlayed) -> {
+           return (long) (InviteRewards.minTotalTime - (1.0*totalTimePlayed)/(60.0*1000.0));
+        });
+    }
+
+    public CompletableFuture<Integer> getProgress() {
+        return getTimePlayed().thenApply((totalTimePlayed) -> {
+           double percentage = (totalTimePlayed*1.0) / (InviteRewards.minTotalTime *1000*60);
+           return (int) percentage;
+        });
     }
 }

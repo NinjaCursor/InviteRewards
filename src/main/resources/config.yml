@@ -54,3 +54,10 @@ completed-message:
     - "CONGRATULATIONS!"
     - "You played on the server for %invplugin_time_total% and you can give your invite reward now"
   inviter: []
+
+selected-message:
+  invited:
+    - ""
+    - ""
+  inviter:
+    - ""

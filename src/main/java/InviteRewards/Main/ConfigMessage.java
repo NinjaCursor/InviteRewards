@@ -1,6 +1,10 @@
 package InviteRewards.Main;
 
 import VertXCommons.Storage.PlayerData;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +16,16 @@ public class ConfigMessage {
         messages = (ArrayList<String>) InviteRewards.getPlugin().getConfig().get(path);
     }
 
-    public void sendMessage(PlayerData playerData) {
+    public void sendMessage(PlayerData receiverData, PlayerData placeholderPlayer) {
+        OfflinePlayer player = Bukkit.getPlayer(placeholderPlayer.getUuid());
         for (String message : messages) {
-            InviteRewards.msg(playerData, message);
+            InviteRewards.msg(receiverData, PlaceholderAPI.setPlaceholders((Player) player, message));
+        }
+    }
+
+    public void sendMessage(PlayerData receiverData) {
+        for (String message : messages) {
+            InviteRewards.msg(receiverData, message);
         }
     }
 }

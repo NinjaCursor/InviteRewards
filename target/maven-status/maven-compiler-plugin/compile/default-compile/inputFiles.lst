@@ -5,14 +5,16 @@ C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\User
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\InvitedConfirmCommand.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Listeners\LockedInListener.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\InviteRewards.java
-C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\InviteRequirementCommand.java
+C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\PlaceholderLibrary.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\InviteStatsCommand.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\OpInviteResetCommand.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\CommandUtility.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\VertXPlayer.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\InvitedByCommand.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\CommandAsset.java
+C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\DualMessage.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Listeners\LogInListener.java
+C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Main\ConfigMessage.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Commands\AllowableUserType.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\CustomEvents\MetRequirementsEvent.java
 C:\Users\jacob\IdeaProjects\VertexInviteRewards\src\main\java\InviteRewards\Storage\DatabaseFunctions.java

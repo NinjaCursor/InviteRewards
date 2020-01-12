@@ -8,6 +8,8 @@ import me.clip.placeholderapi.external.EZPlaceholderHook;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.concurrent.ExecutionException;
+
 public class PlaceholderLibrary extends EZPlaceholderHook {
 
     public PlaceholderLibrary() {
@@ -40,9 +42,13 @@ public class PlaceholderLibrary extends EZPlaceholderHook {
                 if (vertXPlayer.isSatisfied()) {
                     return ChatColor.GREEN + "completed" + ChatColor.RESET;
                 }
-                return vertXPlayer.getProgress() + " / " + InviteRewards.minTotalTime;
-            case "invited_count":
-                return getCount(vertXPlayer.getInvitedPlayers().size());
+                try {
+                    return vertXPlayer.getProgress().get() + "";
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             case "invite_selection_command":
                 return InviteRewards.getInvitedByCommandName();
             case "invite_confirm_command":
@@ -53,7 +59,7 @@ public class PlaceholderLibrary extends EZPlaceholderHook {
                 if (vertXPlayer.isSatisfied())
                     return "0";
                 else
-                    return vertXPlayer.timeLeft() + "";
+                    return vertXPlayer.getTimeLeft() + "";
             case "time_required":
                 return InviteRewards.minTotalTime + "m";
 
