@@ -20,12 +20,9 @@ public class LockedInListener extends DualMessage implements Listener {
     @EventHandler
     public void onLockedIn(LockedInEvent event) {
 
-        PlayerData invitedData = event.getInvitedData();
-        PlayerData inviterData = event.getInviterData();
+        sendMessages(event.getEventPackage());
 
-        sendMessages(invitedData, inviterData);
-
-        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
+        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(event.getInvitedData());
         if (invitedPlayer.isSatisfied())
             Bukkit.getPluginManager().callEvent(new AwardedEvent(inviterData, invitedData));
 

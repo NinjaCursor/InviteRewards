@@ -10,14 +10,14 @@ public class InviteSelectionEvent extends Event implements Cancellable {
     private boolean isCancelled;
     private static final HandlerList handlers = new HandlerList();
 
-    private PlayerData inviterData, invitedData;
+    private EventPackage eventPackage;
 
-    public PlayerData getInviterData() {
-        return inviterData;
+    public EventPackage getEventPackage() {
+        return this.eventPackage;
     }
 
-    public PlayerData getInvitedData() {
-        return invitedData;
+    public InviteSelectionEvent(EventPackage eventPackage) {
+        this.eventPackage = eventPackage;
     }
 
     public static HandlerList getHandlerList() {

@@ -1,5 +1,6 @@
 package InviteRewards.Main;
 
+import InviteRewards.CustomEvents.InviteSelectionEvent;
 import InviteRewards.CustomEvents.LockedInEvent;
 import InviteRewards.CustomEvents.MetRequirementsEvent;
 import VertXCommons.Storage.PlayerData;
@@ -149,9 +150,12 @@ public class VertXPlayer {
                 error("You cannot invite yourself");
                 return;
             }
+
             setRunning();
             InviteRewards.getDataHandler().setInvited(inviter, selfPlayer).thenAccept((success) -> {
                 if (success) {
+
+                    Bukkit.getPluginManager().callEvent(new InviteSelectionEvent());
 
                     //setInvited for inviter
                     if (inviterPlayer != null) {
@@ -159,9 +163,6 @@ public class VertXPlayer {
                     }
 
                     inviterPlayer = inviter;
-
-                    msg("You have selected " + InviteRewards.formatName(inviter) + " to receive your invite reward");
-                    msg("Type " + ChatColor.WHITE + "/inviteconfirm" + ChatColor.GRAY + " to confirm your selection");
 
                     //change inviterPlayer (PlayerData)
                     InviteRewards.getDataHandler().getPlayer(inviter).getCommander().setInvited(player);

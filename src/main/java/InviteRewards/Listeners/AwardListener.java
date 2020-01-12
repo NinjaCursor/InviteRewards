@@ -17,20 +17,7 @@ public class AwardListener extends DualMessage implements Listener {
 
     @EventHandler
     public void onAward(AwardedEvent event) {
-
-        PlayerData invitedData = event.getInvitedData();
-        PlayerData inviterData = event.getInviterData();
-
-        sendMessages(invitedData, inviterData);
-
-        VertXPlayer invitedPlayer = InviteRewards.getDataHandler().getPlayer(invitedData);
-        VertXPlayer inviterPlayer = InviteRewards.getDataHandler().getPlayer(inviterData);
-
-        invitedPlayer.msg(InviteRewards.formatName(inviterData) + " will now receive a reward!");
-
-        inviterPlayer.msg(ChatColor.GREEN + "" + ChatColor.BOLD + "CONGRATULATIONS!");
-        inviterPlayer.msg(ChatColor.AQUA + "You invited " + InviteRewards.formatName(invitedData) + " and you deserve a reward!");
-
+        sendMessages(event.getInvitedData(), event.getInviterData());
     }
 
 }

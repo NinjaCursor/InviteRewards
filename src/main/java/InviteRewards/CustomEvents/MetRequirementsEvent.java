@@ -10,19 +10,14 @@ public class MetRequirementsEvent extends Event implements Cancellable {
     private boolean isCancelled;
     private static final HandlerList handlers = new HandlerList();
 
-    private PlayerData inviterData, invitedData;
+    private EventPackage eventPackage;
 
-    public MetRequirementsEvent(PlayerData inviterData, PlayerData invitedData) {
-        this.inviterData = inviterData;
-        this.invitedData = invitedData;
+    public EventPackage getEventPackage() {
+        return this.eventPackage;
     }
 
-    public PlayerData getInviterData() {
-        return inviterData;
-    }
-
-    public PlayerData getInvitedData() {
-        return invitedData;
+    public MetRequirementsEvent(EventPackage eventPackage) {
+        this.eventPackage = eventPackage;
     }
 
     public static HandlerList getHandlerList() {
