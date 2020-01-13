@@ -36,8 +36,8 @@ public class HandleRequirements {
             if (minutesPlayed < InviteRewards.minTotalTime) {
 
                 if (wasInvited) {
-                    InviteRewards.msg(vertXPlayer.getSelfPlayer(), "For " + vertXPlayer.getInviterPlayer().getName() + " to receive your invite reward");
-                    InviteRewards.msg(vertXPlayer.getSelfPlayer(), "play for " + minutesLeft + " more minute(s)");
+                    InviteRewards.getChat().msg(vertXPlayer.getSelfPlayer(), "For " + vertXPlayer.getInviterPlayer().getName() + " to receive your invite reward");
+                    InviteRewards.getChat().msg(vertXPlayer.getSelfPlayer(), "play for " + minutesLeft + " more minute(s)");
                 }
 
                 int taskToken = Bukkit.getScheduler().scheduleSyncDelayedTask(InviteRewards.getPlugin(), new Runnable() {

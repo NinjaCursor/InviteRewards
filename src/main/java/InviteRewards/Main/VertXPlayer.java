@@ -79,7 +79,7 @@ public class VertXPlayer {
     }
 
     public void error(String message) {
-        InviteRewards.messageError(selfPlayer, message);
+        InviteRewards.getChat().messageError(selfPlayer, message);
     }
 
     private void databaseError() {
@@ -135,7 +135,7 @@ public class VertXPlayer {
             }
 
             if (isGiven()) {
-                error("The reward has already been given to " + InviteRewards.formatName(inviterPlayer));
+                error("The reward has already been given to " + inviterPlayer.getName());
                 return;
             }
 
@@ -302,7 +302,7 @@ public class VertXPlayer {
     }
 
     public void msg(String message) {
-        InviteRewards.msg(selfPlayer, message);
+        InviteRewards.getChat().msg(selfPlayer, message);
     }
 
     public PlayerData getSelfPlayer() {

@@ -19,13 +19,13 @@ public class ConfigMessage {
     public void sendMessage(PlayerData receiverData, PlayerData placeholderPlayer) {
         OfflinePlayer player = Bukkit.getOfflinePlayer(placeholderPlayer.getUuid());
         for (String message : messages) {
-            InviteRewards.msg(receiverData, PlaceholderAPI.setPlaceholders(player, message));
+            InviteRewards.getChat().msg(receiverData, PlaceholderAPI.setPlaceholders(player, message.replace("&r", InviteRewards.getChat().getDefaultColor())));
         }
     }
 
     public void sendMessage(PlayerData receiverData) {
         for (String message : messages) {
-            InviteRewards.msg(receiverData, message);
+            InviteRewards.getChat().msg(receiverData, message);
         }
     }
 }

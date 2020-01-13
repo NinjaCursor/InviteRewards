@@ -20,10 +20,9 @@ public class PlaceholderLibrary extends PlaceholderExpansion {
      * can simply use this method here to get an instance of our
      * plugin.
      *
-     * @param plugin
-     *        The instance of our plugin.
+     * @param plugin The instance of our plugin.
      */
-    public PlaceholderLibrary(JavaPlugin plugin){
+    public PlaceholderLibrary(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -46,7 +45,7 @@ public class PlaceholderLibrary extends PlaceholderExpansion {
      * @return Always true since it's an internal class.
      */
     @Override
-    public boolean canRegister(){
+    public boolean canRegister() {
         return true;
     }
 
@@ -57,7 +56,7 @@ public class PlaceholderLibrary extends PlaceholderExpansion {
      * @return The name of the author as a String.
      */
     @Override
-    public String getAuthor(){
+    public String getAuthor() {
         return plugin.getDescription().getAuthors().toString();
     }
 
@@ -71,20 +70,20 @@ public class PlaceholderLibrary extends PlaceholderExpansion {
      * @return The identifier in {@code %<identifier>_<value>%} as String.
      */
     @Override
-    public String getIdentifier(){
+    public String getIdentifier() {
         return "invplugin";
     }
 
     /**
      * This is the version of the expansion.
      * <br>You don't have to use numbers, since it is set as a String.
-     *
+     * <p>
      * For convienience do we return the version from the plugin.yml
      *
      * @return The version as a String.
      */
     @Override
-    public String getVersion(){
+    public String getVersion() {
         return plugin.getDescription().getVersion();
     }
 
@@ -93,57 +92,77 @@ public class PlaceholderLibrary extends PlaceholderExpansion {
     }
 
     public String getCount(int count) {
-        return ((count > 0) ? "" + ChatColor.GREEN + count : "" + ChatColor.RED + count) + ChatColor.GRAY;
+        return ((count > 0) ? "" + ChatColor.GREEN + count : "" + ChatColor.RED + count) + InviteRewards.getChat().getDefaultColor();
     }
 
     public String getYesNo(boolean trueOrFalse) {
-        return (trueOrFalse ? "" + ChatColor.GREEN + "yes" : "" + ChatColor.RED + "no") + ChatColor.GRAY;
+        return (trueOrFalse ? "" + ChatColor.GREEN + "yes" : "" + ChatColor.RED + "no") + InviteRewards.getChat().getDefaultColor();
     }
 
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(getPlayerData(player));
+        String returnString = "";
         switch (params) {
             case "locked":
-                return getYesNo(vertXPlayer.isLocked());
+                returnString += getYesNo(vertXPlayer.isLocked());
+                break;
             case "satisfied":
-                return getYesNo(vertXPlayer.isSatisfied());
+                returnString += getYesNo(vertXPlayer.isSatisfied());
+                break;
             case "given":
-                return getYesNo(vertXPlayer.isGiven());
+                returnString += getYesNo(vertXPlayer.isGiven());
+                break;
             case "invited_count":
                 int count = vertXPlayer.getInvitedPlayers().size();
-                return (count < 1 ? ChatColor.RED + "" + count : ChatColor.GREEN + "" + count) + ChatColor.GRAY;
+                returnString += (count < 1 ? ChatColor.RED + "" + count : ChatColor.GREEN + "" + count);
+                break;
             case "brief_stats":
-                return PlaceholderAPI.setPlaceholders(player, "locked: %invplugin_locked%, completed: %invplugin_satisfied%, invited: %invplugin_invited_count%");
+                returnString += PlaceholderAPI.setPlaceholders(player, "locked: %invplugin_locked%, completed: %invplugin_satisfied%, invited: %invplugin_invited_count%");
+                break;
             case "self":
-                return vertXPlayer.getSelfPlayer().getName();
+                returnString += vertXPlayer.getSelfPlayer().getName();
+                break;
             case "inviter":
                 if (vertXPlayer.getInviterPlayer() != null) {
-                    return vertXPlayer.getInviterPlayer().getName();
+                    returnString += vertXPlayer.getInviterPlayer().getName();
+                } else {
+                    returnString += "none selected";
                 }
-                return "none selected";
+                break;
             case "progress":
                 if (vertXPlayer.getProgress() >= 0)
-                    return vertXPlayer.getProgress() + "%";
+                    returnString += vertXPlayer.getProgress() + "%";
                 else
-                    return vertXPlayer.isSatisfied() ? "100%" : "not completed";
+                    returnString += vertXPlayer.isSatisfied() ? "100%" : "not completed";
+                break;
             case "invite_selection_command":
-                return InviteRewards.getInvitedByCommandName();
+                returnString += InviteRewards.getInvitedByCommandName();
+                break;
             case "invite_confirm_command":
-                return InviteRewards.getInvitedConfirmCommandName();
+                returnString += InviteRewards.getInvitedConfirmCommandName();
+                break;
             case "invite_stats_command":
-                return InviteRewards.getInviteStatsCommandName();
+                returnString += InviteRewards.getInviteStatsCommandName();
+                break;
             case "time_required":
-                return InviteRewards.minTotalTime + "m";
+                returnString += InviteRewards.minTotalTime + "m";
+                break;
             case "most_recent_invited_locked":
-                return vertXPlayer.getMostRecent().getLocked().getName();
+                returnString += vertXPlayer.getMostRecent().getLocked().getName();
+                break;
             case "most_recent_invited_completed":
-                return vertXPlayer.getMostRecent().getCompleted().getName();
+                returnString += vertXPlayer.getMostRecent().getCompleted().getName();
+                break;
             case "most_recent_invited_selected":
-                return vertXPlayer.getMostRecent().getSelected().getName();
+                returnString += vertXPlayer.getMostRecent().getSelected().getName();
+                break;
+            case "minutes_left":
+                returnString += "" + Math.ceil(InviteRewards.minTotalTime-(vertXPlayer.getTimePlayed()/(60.0*1000.0)));
 
         }
-        return null;
+        returnString += InviteRewards.getChat().getDefaultColor();
+        return returnString;
     }
 
 }

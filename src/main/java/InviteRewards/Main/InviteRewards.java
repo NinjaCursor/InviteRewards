@@ -24,7 +24,7 @@ public class InviteRewards extends JavaPlugin {
     private static InvitedByCommand invitedByCommand;
     private static InvitedConfirmCommand invitedConfirmCommand;
     private static InviteStatsCommand inviteStatsCommand;
-    private static String defaultColor;
+    private static ChatHandler chatHandler;
 
     public static String getInvitedByCommandName() {
         return invitedByCommand.getCommandName();
@@ -50,21 +50,8 @@ public class InviteRewards extends JavaPlugin {
         Bukkit.getLogger().info("[VertX.InviteRewards] INFO >> " + message);
     }
 
-    public static void msg(PlayerData playerData, String message) {
-        for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-            if(p.getUniqueId().equals(playerData.getUuid())) {
-                p.sendMessage(defaultColor + ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(p, message).replace("&r", defaultColor)));
-            }
-        }
-
-    }
-
-    public static void messageError(PlayerData playerData, String message) {
-        msg(playerData, "" + ChatColor.RED + message);
-    }
-
-    public static String formatName(PlayerData playerData) {
-        return "" + ChatColor.WHITE + ChatColor.stripColor(playerData.getName()) + ChatColor.RESET + ChatColor.GRAY;
+    public static ChatHandler getChat() {
+        return chatHandler;
     }
 
     public static void setPlugin(JavaPlugin otherPlugin) {
@@ -92,7 +79,7 @@ public class InviteRewards extends JavaPlugin {
         minLogins = getConfig().getInt("logins");
         minLoginTime = getConfig().getInt("login-min");
         minTotalTime = getConfig().getInt("totaltime");
-        defaultColor = ChatColor.translateAlternateColorCodes('&', getConfig().getString("default-color"));
+        chatHandler = new ChatHandler(getConfig().getString("default-color"));
 
         invitedByCommand = new InvitedByCommand("invitedby" , "");
         invitedConfirmCommand = new InvitedConfirmCommand("inviteconfirm", "");

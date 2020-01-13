@@ -9,10 +9,13 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class LogInListener implements Listener {
@@ -38,7 +41,7 @@ public class LogInListener implements Listener {
     }
 
     @EventHandler
-    public void onLogin(PlayerLoginEvent event) {
+    public void onLogin(PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
 
@@ -50,7 +53,7 @@ public class LogInListener implements Listener {
         if (!player.hasPlayedBefore()) {
             newPersonMessage.sendMessage(playerData);
         } else {
-            if (vertXPlayer.getInviterPlayer() != null) {
+            if (vertXPlayer.getInviterPlayer() == null) {
                 oldNotInvitedMessage.sendMessage(playerData);
             } else {
                 if (vertXPlayer.isSatisfied() && !vertXPlayer.isLocked())
