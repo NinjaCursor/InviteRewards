@@ -5,17 +5,13 @@ import InviteRewards.Main.HandleRequirements;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
 import VertXCommons.Storage.PlayerData;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class LogInListener implements Listener {
@@ -51,8 +47,21 @@ public class LogInListener implements Listener {
         VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(playerData);
 
         if (!vertXPlayer.isSatisfied()) {
-            HandleRequirements.handle(vertXPlayer);
+            HandleRequirements.handle(vertXPlayer, new Runnable() {
+                @Override
+                public void run() {
+                    sendLoginMessages(player, vertXPlayer);
+                }
+            });
         }
+
+
+
+    }
+
+    public void sendLoginMessages(Player player, VertXPlayer vertXPlayer) {
+
+        PlayerData playerData = new PlayerData(player.getUniqueId(), player.getDisplayName());
 
         if (!player.hasPlayedBefore()) {
             newPersonMessage.sendMessage(playerData);
@@ -66,6 +75,6 @@ public class LogInListener implements Listener {
                     oldNotCompletedMessage.sendMessage(playerData);
             }
         }
-
     }
+
  }

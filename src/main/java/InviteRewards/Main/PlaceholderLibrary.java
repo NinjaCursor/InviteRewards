@@ -3,13 +3,9 @@ package InviteRewards.Main;
 import VertXCommons.Storage.PlayerData;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.concurrent.ExecutionException;
 
 public class PlaceholderLibrary extends PlaceholderExpansion {
 

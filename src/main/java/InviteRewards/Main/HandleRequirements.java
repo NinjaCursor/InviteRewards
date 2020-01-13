@@ -18,7 +18,7 @@ public class HandleRequirements {
         }
     }
 
-    public static void handle(VertXPlayer vertXPlayer) {
+    public static void handle(VertXPlayer vertXPlayer, Runnable runnable) {
 
         boolean wasInvited;
 
@@ -44,6 +44,9 @@ public class HandleRequirements {
                         playerTaskIDs.remove(vertXPlayer.getSelfPlayer());
                     }
                 }, minutesLeft*60*20);
+
+
+                runnable.run();
 
                 playerTaskIDs.put(vertXPlayer.getSelfPlayer().getUuid(), taskToken);
 

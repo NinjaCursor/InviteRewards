@@ -2,7 +2,7 @@
 debugmode: false
 
 #total required time (minutes)
-totaltime: 256
+totaltime: 290
 
 #minimum number of logins
 logins: 4

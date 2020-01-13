@@ -5,8 +5,6 @@ import InviteRewards.CustomEvents.LockedInEvent;
 import InviteRewards.Main.DualMessage;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
-import VertXCommons.Storage.PlayerData;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

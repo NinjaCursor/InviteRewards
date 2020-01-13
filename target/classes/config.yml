@@ -2,7 +2,7 @@
 debugmode: false
 
 #total required time (minutes)
-totaltime: 256
+totaltime: 290
 
 #minimum number of logins
 logins: 4
@@ -50,7 +50,7 @@ login-message:
 award-message:
   invited:
     - ""
-    - "     &d%invplugin_inviter% will now receive a reward%"
+    - "     &d%invplugin_inviter% will now receive your invite reward"
     - ""
   inviter:
     - ""
