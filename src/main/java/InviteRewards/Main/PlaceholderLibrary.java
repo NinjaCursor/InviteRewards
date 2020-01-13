@@ -131,10 +131,14 @@ public class PlaceholderLibrary extends PlaceholderExpansion {
                 }
                 break;
             case "progress":
-                if (vertXPlayer.getProgress() >= 0)
-                    returnString += vertXPlayer.getProgress() + "%";
-                else
-                    returnString += vertXPlayer.isSatisfied() ? "100%" : "not completed";
+                if (vertXPlayer.isSatisfied()) {
+                    returnString += "100%";
+                } else {
+                    if (vertXPlayer.getProgress() >= 0)
+                        returnString += vertXPlayer.getProgress() + "%";
+                    else
+                        returnString += vertXPlayer.isSatisfied() ? "100%" : "not completed";
+                }
                 break;
             case "invite_selection_command":
                 returnString += InviteRewards.getInvitedByCommandName();

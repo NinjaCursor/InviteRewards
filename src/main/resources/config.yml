@@ -22,7 +22,7 @@ invite-stats:
   - "Invited: %invplugin_invited_count%"
 
 invite-list-structure:
-  - " - %invplugin_self%: %invplugin_brief_stats%"
+  - " - &d%invplugin_self%: %invplugin_brief_stats%"
 
 login-message:
   new:
