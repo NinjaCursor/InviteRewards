@@ -3,6 +3,8 @@ package InviteRewards.Commands;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
 import InviteRewards.UsernameConverter.UsernameConverter;
+import VertXCommons.Commands.AllowableUserType;
+import VertXCommons.Commands.CommandAsset;
 import VertXCommons.Storage.PlayerData;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.command.CommandSender;

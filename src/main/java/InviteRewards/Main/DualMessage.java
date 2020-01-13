@@ -1,11 +1,6 @@
 package InviteRewards.Main;
 
 import InviteRewards.CustomEvents.EventPackage;
-import VertXCommons.Storage.PlayerData;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DualMessage {
 

@@ -165,8 +165,10 @@ public class PlaceholderLibrary extends PlaceholderExpansion {
                 returnString += "" + Math.ceil(InviteRewards.minTotalTime-(vertXPlayer.getTimePlayed()/(60.0*1000.0)));
 
         }
+
         returnString += InviteRewards.getChat().getDefaultColor();
         return returnString;
+
     }
 
 }

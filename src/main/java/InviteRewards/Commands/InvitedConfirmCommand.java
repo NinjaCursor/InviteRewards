@@ -1,6 +1,8 @@
 package InviteRewards.Commands;
 
 import InviteRewards.Main.InviteRewards;
+import VertXCommons.Commands.AllowableUserType;
+import VertXCommons.Commands.CommandAsset;
 import VertXCommons.Storage.PlayerData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

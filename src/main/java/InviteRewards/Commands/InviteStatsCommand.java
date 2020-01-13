@@ -4,6 +4,8 @@ import InviteRewards.Main.ConfigMessage;
 import InviteRewards.Main.InviteRewards;
 import InviteRewards.Main.VertXPlayer;
 import InviteRewards.UsernameConverter.UsernameConverter;
+import VertXCommons.Commands.AllowableUserType;
+import VertXCommons.Commands.CommandAsset;
 import VertXCommons.Storage.PlayerData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -41,9 +43,6 @@ public class InviteStatsCommand extends CommandAsset {
 
 
                     PlayerData viewer = new PlayerData(player.getUniqueId(), player.getPlayerListName());
-
-
-
 
                     VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(playerData);
                     Set<VertXPlayer> invitedPlayers = vertXPlayer.getInvitedPlayers();

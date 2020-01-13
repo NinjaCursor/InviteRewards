@@ -15,10 +15,13 @@ public class ChatHandler {
     }
 
     public void msg(PlayerData playerData, String message) {
+
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+
             if(p.getUniqueId().equals(playerData.getUuid())) {
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', defaultColor+PlaceholderAPI.setPlaceholders(p, message.replace("&r", defaultColor))));
             }
+
         }
 
     }
@@ -29,10 +32,6 @@ public class ChatHandler {
 
     public void messageError(PlayerData playerData, String message) {
         msg(playerData, "" + ChatColor.RED + message);
-    }
-
-    public static String formatName(PlayerData playerData) {
-        return "" + ChatColor.WHITE + ChatColor.stripColor(playerData.getName()) + ChatColor.RESET + ChatColor.GRAY;
     }
 
 }

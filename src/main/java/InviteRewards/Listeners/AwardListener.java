@@ -18,6 +18,10 @@ public class AwardListener extends DualMessage implements Listener {
     @EventHandler
     public void onAward(AwardedEvent event) {
         sendMessages(event.getEventPackage());
+
+        //set placeholder data
+        VertXPlayer inviter = InviteRewards.getDataHandler().getPlayer(event.getEventPackage().getInviterData());
+        inviter.getMostRecent().setAward(event.getEventPackage().getInvitedData());
     }
 
 }

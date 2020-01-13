@@ -8,13 +8,10 @@ import VertXCommons.Storage.PlayerData;
 import VertXTimeManagement.Main.TimeManagement;
 import VertXTimeManagement.Storage.PublicDataContainer;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 public class VertXPlayer {
 
@@ -88,10 +85,18 @@ public class VertXPlayer {
     }
 
     public class PlaceholderData {
-        private PlayerData locked, completed, selected;
+        private PlayerData locked, completed, selected, award;
 
         public PlaceholderData() {
             this.locked = this.completed = this.selected = null;
+        }
+
+        public PlayerData getAward() {
+            return award;
+        }
+
+        public void setAward(PlayerData award) {
+            this.award = award;
         }
 
         public PlayerData getLocked() {
@@ -355,6 +360,7 @@ public class VertXPlayer {
         double percentage = (data.getTotalTime()*1.0) / (InviteRewards.minTotalTime *1000*60);
         if (percentage > 1)
             return 100;
+
         return (int) (percentage*100);
     }
 }

@@ -32,6 +32,8 @@ public class HandleRequirements {
             long minutesPlayed = dataContainer.getTotalTime() / (1000 * 60);
             long minutesLeft = InviteRewards.minTotalTime-minutesPlayed;
 
+            Bukkit.getLogger().info("Minutes Left: " + minutesLeft);
+
             //check if they really did not satisify requirements
             if (minutesPlayed < InviteRewards.minTotalTime) {
 
@@ -43,6 +45,7 @@ public class HandleRequirements {
                 int taskToken = Bukkit.getScheduler().scheduleSyncDelayedTask(InviteRewards.getPlugin(), new Runnable() {
                     @Override
                     public void run() {
+                        Bukkit.getLogger().info("MARKER MARKER MAKER MARKER");
                         InviteRewards.getDataHandler().getPlayer(vertXPlayer.getSelfPlayer()).getCommander().setSatisfied();
                         playerTaskIDs.remove(vertXPlayer.getSelfPlayer());
                     }
