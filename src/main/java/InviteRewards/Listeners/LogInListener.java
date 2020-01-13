@@ -50,6 +50,10 @@ public class LogInListener implements Listener {
 
         VertXPlayer vertXPlayer = InviteRewards.getDataHandler().getPlayer(playerData);
 
+        if (!vertXPlayer.isSatisfied()) {
+            HandleRequirements.handle(vertXPlayer);
+        }
+
         if (!player.hasPlayedBefore()) {
             newPersonMessage.sendMessage(playerData);
         } else {
@@ -61,10 +65,6 @@ public class LogInListener implements Listener {
                 else
                     oldNotCompletedMessage.sendMessage(playerData);
             }
-        }
-
-        if (!vertXPlayer.isSatisfied()) {
-            HandleRequirements.handle(vertXPlayer);
         }
 
     }
