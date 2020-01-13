@@ -4,6 +4,12 @@ debugmode: false
 #total required time (minutes)
 totaltime: 246
 
+#minimum number of logins
+logins: 4
+
+#minimum time spent on each login for login to count
+login-min: 15
+
 # default color normal text in messages
 default-color: "&r&7"
 
@@ -33,8 +39,9 @@ login-message:
       - "Who invited you to the server? Use &b/%invplugin_invite_selection_command% &bplayer"
     invited:
       not-locked-but-completed:
-        - "Looks like you have played on the server for a while, but you haven't selected your inviter"
-        - "To do so, use &b/%invplugin_invite_selection_command%"
+        - "Looks like you have completed the Invite Rewards requirements and chosen %invplugin_inviter%"
+        - "But you haven't confirmed your selection, so %invplugin_inviter% will not get a reward"
+        - "To do so, use &b/%invplugin_invite_confirm_command%"
       not-completed:
         - "Play for &d%invplugin_minutes_left% more minutes so &d%invplugin_inviter% can get a reward"
 
@@ -81,6 +88,6 @@ selected-message:
     - ""
     - "     You selected &d%invplugin_inviter%&7 to be your inviter"
     - ""
-    - "     Type &d/%invplugin_invited_confirm_command% to confirm your selection"
+    - "     Type &d/%invplugin_invite_confirm_command% to confirm your selection"
     - ""
   inviter: []

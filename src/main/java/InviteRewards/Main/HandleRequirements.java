@@ -32,15 +32,9 @@ public class HandleRequirements {
             long minutesPlayed = dataContainer.getTotalTime() / (1000 * 60);
             long minutesLeft = InviteRewards.minTotalTime-minutesPlayed;
 
-            Bukkit.getLogger().info("Minutes Left: " + minutesLeft);
-
             //check if they really did not satisify requirements
             if (minutesPlayed < InviteRewards.minTotalTime) {
 
-                if (wasInvited) {
-                    InviteRewards.getChat().msg(vertXPlayer.getSelfPlayer(), "For " + vertXPlayer.getInviterPlayer().getName() + " to receive your invite reward");
-                    InviteRewards.getChat().msg(vertXPlayer.getSelfPlayer(), "play for " + minutesLeft + " more minute(s)");
-                }
 
                 int taskToken = Bukkit.getScheduler().scheduleSyncDelayedTask(InviteRewards.getPlugin(), new Runnable() {
                     @Override

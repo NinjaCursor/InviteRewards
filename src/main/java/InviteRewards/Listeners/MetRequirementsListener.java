@@ -27,8 +27,7 @@ public class MetRequirementsListener extends DualMessage implements Listener {
         else {
             invitedPlayer.error("You still need to select the player who invited you!");
         }
-
-
+        
     }
 
 }
