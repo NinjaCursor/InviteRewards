@@ -151,7 +151,7 @@ public class VertXPlayer {
 
             if (inviter.getUuid().equals(selfPlayer.getUuid())) {
                 error("You cannot invite yourself");
-                return;
+                //return;todo
             }
 
             setRunning();

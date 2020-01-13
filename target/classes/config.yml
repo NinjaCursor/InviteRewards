@@ -2,7 +2,7 @@
 debugmode: false
 
 #total required time (minutes)
-totaltime: 90
+totaltime: 256
 
 #minimum number of logins
 logins: 4
@@ -10,11 +10,18 @@ logins: 4
 #minimum time spent on each login for login to count
 login-min: 15
 
+# default color normal text in messages
 default-color: "&r&7"
 
-#mesages
+# The following placeholders are exclusive to an event
+# %invplugin_most_recent_invited_rewarded%------> award event
+# %invplugin_most_recent_invited_selected%------> select event
+# %invplugin_most_recent_invited_locked%--------> locked event
+# %invplugin_most_recent_invited_completed%-----> completed event
+
+# mesages
 invite-stats:
-  - "------[ &6&lInvite Rewards ]------"
+  - "------[ &6&lInvite Rewards&r ]------"
   - "Player: &f%invplugin_self%"
   - "Inviter: &f%invplugin_inviter%"
   - "Locked: %invplugin_locked%"
@@ -22,7 +29,7 @@ invite-stats:
   - "Invited: %invplugin_invited_count%"
 
 invite-list-structure:
-  - " - &d%invplugin_self%: %invplugin_brief_stats%"
+  - " - &f%invplugin_self% %invplugin_brief_stats%"
 
 login-message:
   new:
@@ -32,11 +39,14 @@ login-message:
       - "Who invited you to the server? Use &b/%invplugin_invite_selection_command% &bplayer"
     invited:
       not-locked-but-completed:
-        - "Looks like you have played on the server for a while, but you haven't selected your inviter"
-        - "To do so, use &b/%invplugin_invite_selection_command%"
+        - "Looks like you have completed the Invite Rewards requirements and chosen %invplugin_inviter%"
+        - "But you haven't confirmed your selection, so %invplugin_inviter% will not get your invite reward"
+        - "To do so, use &b/%invplugin_invite_confirm_command%"
       not-completed:
-        - "Play for &d%invplugin_minutes_left% more minutes so &d%invplugin_inviter% can get a reward"
+        - "Play for &d%invplugin_minutes_left% more minutes so &d%invplugin_inviter% can get your invite reward"
 
+
+# when both the invited has locked in inviter and has completed the requirements
 award-message:
   invited:
     - ""
@@ -45,9 +55,11 @@ award-message:
   inviter:
     - ""
     - "     &a&l&oCONGRATULATIONS!"
-    - "     You invited &b%invplugin_most_recent_invited_completion%, which means you get a reward!"
+    - ""
+    - "     You invited &b%invplugin_most_recent_invited_rewarded%, which means you get a reward!"
     - ""
 
+# fired when invited types /inviteconfirm
 locked-message:
   invited:
     - ""
@@ -56,20 +68,26 @@ locked-message:
   inviter:
     - ""
     - "     &d%invplugin_most_recent_invited_locked% has selected you as their inviter"
+    - ""
     - "     When &d%invplugin_most_recent_invited_locked% has played for &d%invplugin_time_total%, you will get a reward!"
     - ""
 
+# fired when invited completes requirements
 completed-message:
   invited:
-    - "&3&l&oCONGRATULATIONS!"
-    - "You played on the server for &d%invplugin_time_required%"
+    - ""
+    - "     &3&l&oCONGRATULATIONS!"
+    - ""
+    - "     You played on the server for &d%invplugin_time_required%"
+    - ""
   inviter: []
 
+# fired when invited selects inviter
 selected-message:
   invited:
     - ""
     - "     You selected &d%invplugin_inviter%&7 to be your inviter"
     - ""
-    - "     Type &d/%invplugin_confirm_command% to confirm your selection"
+    - "     Type &d/%invplugin_invite_confirm_command% to confirm your selection"
     - ""
   inviter: []

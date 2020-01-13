@@ -2,7 +2,7 @@
 debugmode: false
 
 #total required time (minutes)
-totaltime: 246
+totaltime: 256
 
 #minimum number of logins
 logins: 4
@@ -40,10 +40,10 @@ login-message:
     invited:
       not-locked-but-completed:
         - "Looks like you have completed the Invite Rewards requirements and chosen %invplugin_inviter%"
-        - "But you haven't confirmed your selection, so %invplugin_inviter% will not get a reward"
+        - "But you haven't confirmed your selection, so %invplugin_inviter% will not get your invite reward"
         - "To do so, use &b/%invplugin_invite_confirm_command%"
       not-completed:
-        - "Play for &d%invplugin_minutes_left% more minutes so &d%invplugin_inviter% can get a reward"
+        - "Play for &d%invplugin_minutes_left% more minutes so &d%invplugin_inviter% can get your invite reward"
 
 
 # when both the invited has locked in inviter and has completed the requirements

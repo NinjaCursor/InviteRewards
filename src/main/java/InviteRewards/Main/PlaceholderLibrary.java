@@ -161,6 +161,9 @@ public class PlaceholderLibrary extends PlaceholderExpansion {
             case "most_recent_invited_selected":
                 returnString += vertXPlayer.getMostRecent().getSelected().getName();
                 break;
+            case "most_recent_invited_rewarded":
+                returnString += vertXPlayer.getMostRecent().getAward().getName();
+                break;
             case "minutes_left":
                 returnString += "" + Math.ceil(InviteRewards.minTotalTime-(vertXPlayer.getTimePlayed()/(60.0*1000.0)));
 
