@@ -2,7 +2,7 @@
 debugmode: false
 
 #total required time (minutes)
-totaltime: 400
+totaltime: 90
 
 #minimum number of logins
 logins: 4
@@ -18,7 +18,7 @@ invite-stats:
   - "Player: &f%invplugin_self%"
   - "Inviter: &f%invplugin_inviter%"
   - "Locked: %invplugin_locked%"
-  - "Progress: &b%invplugin_progress%"
+  - "Progress: &3%invplugin_progress%"
   - "Invited: %invplugin_invited_count%"
 
 invite-list-structure:
@@ -26,23 +26,27 @@ invite-list-structure:
 
 login-message:
   new:
-    - "Looks like you're new to this server. If someone invited you to this server, use &b/%invplugin_invite_selection_command%"
+    - "Who invited you to the server? Use &b/%invplugin_invite_selection_command% &bplayer"
   old:
     not-invited:
-      - "Who invited you to the server? Use &b/%invplugin_invite_selection_command% &binviter"
+      - "Who invited you to the server? Use &b/%invplugin_invite_selection_command% &bplayer"
     invited:
       not-locked-but-completed:
         - "Looks like you have played on the server for a while, but you haven't selected your inviter"
         - "To do so, use &b/%invplugin_invite_selection_command%"
       not-completed:
-        - "Play for &d%invplugin_minutes_left% so &d%invplugin_inviter% can get a reward"
+        - "Play for &d%invplugin_minutes_left% more minutes so &d%invplugin_inviter% can get a reward"
 
 award-message:
   invited:
-    - "&d%invplugin_inviter% will now receive a reward%"
+    - ""
+    - "     &d%invplugin_inviter% will now receive a reward%"
+    - ""
   inviter:
-    - "&a&l&oCONGRATULATIONS!"
-    - "You invited &b%invplugin_most_recent_invited_completion%, which means you get a reward!"
+    - ""
+    - "     &a&l&oCONGRATULATIONS!"
+    - "     You invited &b%invplugin_most_recent_invited_completion%, which means you get a reward!"
+    - ""
 
 locked-message:
   invited:
@@ -50,8 +54,10 @@ locked-message:
     - "     You locked in &b%invplugin_inviter% as your inviter"
     - ""
   inviter:
-    - "&d%invplugin_most_recent_invited_locked% has selected you as their inviter"
-    - "When &d%invplugin_most_recent_invited_locked% has played for &d%invplugin_time_total%, you will get a reward!"
+    - ""
+    - "     &d%invplugin_most_recent_invited_locked% has selected you as their inviter"
+    - "     When &d%invplugin_most_recent_invited_locked% has played for &d%invplugin_time_total%, you will get a reward!"
+    - ""
 
 completed-message:
   invited:
@@ -66,5 +72,4 @@ selected-message:
     - ""
     - "     Type &d/%invplugin_confirm_command% to confirm your selection"
     - ""
-  inviter:
-    - ""
+  inviter: []
